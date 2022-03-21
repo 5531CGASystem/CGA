@@ -5,8 +5,9 @@ include "./includes/config.php";
 
 <html>
 <head>
-<Title>CrsMgr - The Course Manager System!!!</title>
+<Title>CGA - The CrsMgr Group-work Assistant!!!</title>
 </head>
+
 <body bgcolor=#faf0e6>
 <br><br><br>
 <table border=0 width=100%>
@@ -14,11 +15,10 @@ include "./includes/config.php";
 <tr><td><br></td></tr>
 <tr bgcolor=#3399ff>
 <td align=center><b><font size=5>
-Welcome to <font color=Red>C</font><font color=yellow>r</font><font color=#00ff00>s</font><font color=#663300>M</font><font color=blue>g</font><font color=#ff3399>r</font> -- The  Course Manager System!</font></b></td>
+Welcome to <font color=Red>C</font><font color=yellow>r</font><font color=#00ff00>s</font><font color=#663300>M</font><font color=blue>g</font><font color=#ff3399>r</font> -- The CrsMgr Group-work Assistant!</font></b></td>
 </tr>
 </table>
 <br><br>
-
 
 <form name=login method=post action="includes/login.php">
 <table border=0 align=center>
@@ -44,7 +44,7 @@ Welcome to <font color=Red>C</font><font color=yellow>r</font><font color=#00ff0
 </tr>
 
 <tr>
-   <td align=center colspan=2><a href=get_password.php>Forgot Password?</a></td>
+   <td align=center colspan=2><a href=reset_password.php>Forgot Password?</a></td>
 </tr>
 </table>
 <br>

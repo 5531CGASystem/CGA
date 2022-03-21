@@ -7,49 +7,48 @@ a:hover {background: #CCFFCC}
 a {text-decoration: none}
 </style>
 
-<head>
-</head>
-
+<head></head>
 
 <body bgcolor=#33cccc>
-
-
-
 <b><font size=4><i><?php echo $_SESSION['dept'] . " " . $_SESSION['code'] . " / " . $_SESSION['term'] . " " . $_SESSION['year']; ?><br>Section NN</i></font></b><hr>
 <b><font size=4>
 
 <ul>
 
-<!--menu for Contact information -->	
-<li><a href="contact_info.php?course_id=MTM1" target="contents"><b><font color=black>Contact Information</b></a></li>
+<!--menu for Sidebar -->	
+<?php
+// Display sidebar for Admin
+if($_SESSION['role_id'] == 1){
+	echo "You are an admin.<p>";
+	echo "<li><a href='manage_users.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Manage Users</b></a></li>";
+	echo "<li><a href='post_notices.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Post Notices</b></a></li>";
+}
 
-<!--menu for course materials:assigment/project/quiz/outline/announcement/solution/leture notes/tutorials-->	
-<li><a href="course_material_list.php?course_id=MTM1" target="contents"><b><font color=black>Course Material</b></a></li>
+// Display sidebar for Instructor
+elseif($_SESSION['role_id'] == 2){
+	echo "You are an instructor.<p>";
+	echo "<li><a href='manage_users.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Manage Users</b></a></li>";
+	echo "<li><a href='manage_groups.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Manage Groups</b></a></li>";
+	echo "<li><a href='post_notices.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Post Notices</b></a></li>";
+	echo "<li><a href='marked_entities.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Marked Entities</b></a></li>";
+	echo "<li><a href='discussion_board.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Discussion Board</b></a></li>";
+}
 
-<!--menu for Tutorial and Lab Time Slots-->	
-<li><a href="ta_time_slot_list.php?course_id=MTM1" target="contents"><b><font color=black>Tutorial and Lab</b></a></li>
+// Display sidebar for Teaching Assistant
+elseif($_SESSION['role_id'] == 3){
+	echo "You are a TA.<p>";
+	echo "<li><a href='marked_entities.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Marked Entities</b></a></li>";
+	echo "<li><a href='discussion_board.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Discussion Board</b></a></li>";
+}
 
-<li><a href = "course_group.php?course_id=MTM1" target ="contents"><b><font color=black>Course Group</b></a></li>
-
-<li><a href = "peer_review_intro.php?course_id=MTM1" target ="contents"><b><font color=black>Peer Review</b></a></li>
-
-<li><a href = "meeting_time_slot_list.php?course_id=MTM1" target ="contents"><b><font color=black>Reserve Meeting Time Slots</b></a></li>
-
-<li><a href = "assignment_list.php?course_id=MTM1" target ="contents"><b><font color=black>Assignment/Project Upload</b></a></li>
-
-<li><a href = "assessment_list.php?course_id=MTM1" target ="contents"><b><font color=black>Online Assessment</b></a></li>
-
-<li><a href = "course_mark_list.php?course_id=MTM1" target ="contents"><b><font color=black>Course Grades</b></a></li>
-
-<li><a href = "change_password.php?course_id=MTM1" target ="contents"><b><font color=black>Change Password</b></a></li>
-
-<li><a href = "change_email.php?course_id=MTM1" target ="contents"><b><font color=black>Change Email</b></a></li>
-
-<!--
-<li><a href = "../logout.php" target ="_top"><b><font color=black>Logout</b></a></li>
--->
+// Display sidebar for Student
+elseif($_SESSION['role_id'] == 4){
+	echo "You are a student.<p>";
+	echo "<li><a href='marked_entities.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Marked Entities</b></a></li>";
+	echo "<li><a href='discussion_board.php?course_id=".$_SESSION['course_id']."'><b><font color=black>Discussion Board</b></a></li>";
+}
+?>
 
 </ul>
-	
 </body>
 </html>

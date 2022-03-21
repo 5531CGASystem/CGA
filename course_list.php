@@ -8,16 +8,16 @@ include "./includes/config.php";
 <style>
 input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:underline;}
 </style>
-
-<Title>CrsMgr - The Course Manager System</title>
+<Title>CGA - The CrsMgr Group-work Assistant</title>
 </head>
+
 <body bgcolor=#faf0e6>
 <br><br><br>
 <center><img src="pics/crsmgr.jpg" border=0>
 <br><br>
-<h2><center>Your Access Roles in CrsMgr -- The Course Manager System</h2>
+<h2><center>Your Courses in CGA -- The CrsMgr Group-work Assistant</h2>
 <hr>
-	<center><h3>Choose one of the roles to proceed</h3>
+	<center><h3>Choose one of the courses to proceed</h3>
 	<font size=4>
 	<div>
 	<?php
@@ -47,4 +47,5 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	<br>
 	<a href = "includes/logout.php">Log out</a></font>
 </body>
+
 </html>

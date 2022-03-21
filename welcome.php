@@ -10,42 +10,33 @@ include "./includes/config.php";
 
 <html>
 <head>
-<Title>CrsMgr - The Course Manager System</title>
+<Title>CGA - The CrsMgr Group-work Assistant</title>
 </head>
+
 <body>
+
+<!-- Displays the coursemanager header -->
 <div class=header>
 <?php
 include "templates/header.php";
 ?>
 </div>
+
 <hr>
+
+<!-- Displays the coursemanager nagivation sidebar -->
 <div class=sidebar>
 <?php
 include "templates/sidebar.php";
 ?>
 </div>
+
+<!-- Displays the coursemanager main content -->
 <div class=content>
 <?php
 include "templates/announcements.php";
 ?>
 </div>
-
-<?php
-
-if($_SESSION['role_id'] == 1){
-	echo "You are admin.";
-}
-elseif($_SESSION['role_id'] == 2){
-	echo "You are instructor.";
-}
-elseif($_SESSION['role_id'] == 3){
-	echo "You are TA.";
-}
-elseif($_SESSION['role_id'] == 4){
-	echo "You are student.";
-}
-
-?>
 
 </body>
 </html>
