@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     } else{
         $_SESSION['role_id'] = trim($_POST["role_id"]);
 		// Redirect user to welcome page
-        header("location: ../welcome.php");
+        header("location: ../course_list.php");
     }
 }
 ?>

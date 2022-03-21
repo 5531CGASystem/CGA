@@ -55,6 +55,6 @@ Welcome to <font color=Red>C</font><font color=yellow>r</font><font color=#00ff0
 
 <!-- set focus on  username -->
 <script language = "javascript">
-  document.login.user_name.focus()
+  document.login.username.focus()
 </script>
 
