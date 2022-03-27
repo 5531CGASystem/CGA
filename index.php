@@ -1,5 +1,12 @@
 <?php
+session_start();
 include "./includes/config.php";
+
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: welcome.php");
+    exit;
+}
 ?>
 
 
@@ -30,7 +37,6 @@ Welcome to <font color=Red>C</font><font color=yellow>r</font><font color=#00ff0
 <tr>
     <td><b>Password:</b></td><td><input type=password name=password maxlength=20 size=21></td>
 </tr>
-
 
 <tr>
    <td colspan=2 align=center>
