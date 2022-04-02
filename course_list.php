@@ -31,8 +31,14 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	</style>
 	<table border=1>
 	<?php
-	// TODO: add different queries based on different roles selected
-	$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id JOIN users_sections us ON s.section_id = us.section_id WHERE us.user_id = " . $_SESSION['id']);
+	// Show courses that they are a TA in
+	if ($_SESSION['role_id'] == 3){
+		$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id JOIN ta_sections ts ON s.section_id = ts.section_id WHERE ts.ta_id = " . $_SESSION['id'] . " ORDER BY 2,3,4,5,12");
+	}
+	// Show courses based on other users (admin, instructor, and student roles)
+	else{
+		$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id JOIN users_sections us ON s.section_id = us.section_id WHERE us.user_id = " . $_SESSION['id'] . " ORDER BY 2,3,4,5,12");
+	}
 	if($data -> num_rows>0){
 		while($row = mysqli_fetch_array($data,MYSQLI_NUM))
 		{
@@ -46,7 +52,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 			$section_name = $row[11];
 
 			echo "<tr><td><center><form name=course_select method=post action=includes/course_select.php>";
-			echo "<input type=Submit value='" . $code . " " . $term . " " . $year . "'>";
+			echo "<input type=Submit value='" . $code . " " . $term . " " . $year . " Section " . $section_name . "'>";
 			echo "<input name=course_id type=hidden value='" . $course_id . "'>";
 			echo "<input name=code type=hidden value='" . $code . "'>";
 			echo "<input name=course_name type=hidden value='" . $course_name . "'>";
