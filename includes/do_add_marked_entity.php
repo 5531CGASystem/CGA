@@ -4,7 +4,7 @@ include "./config.php";
 include($_SERVER["DOCUMENT_ROOT"] . "/include/config.php");
 
 $target_dir = $_SERVER["DOCUMENT_ROOT"]  . "/uploads/";
-
+$file_id = 0;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $link->real_escape_string(trim($_POST["marked_entity_name"]));
