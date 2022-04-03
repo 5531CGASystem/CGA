@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Allow certain file formats
         if (
-            !strcasecmp($imageFileType, "pdf") ||  !strcasecmp($imageFileType, "zip")
+            !strcasecmp($fileType, "pdf") ||  !strcasecmp($fileType, "zip")
         ) {
            //echo "Sorry, only pdf or zip files are allowed.";
            $success = false;
