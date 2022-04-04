@@ -1,12 +1,5 @@
 <?php
 include "includes/head.php";
-
-// Check if person does not have access
-if(!isset($_SERVER['HTTP_REFERER'])){
-  // Redirect user back to previous page
-  header("location: marked_entities.php");
-  exit;
-}
 ?>
 
 <!-- Displays the coursemanager main content -->
@@ -15,13 +8,10 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <button><a href="discussion_board.php">Back</a></button>
 <p></p>
 
-<h1>Add a Topic</h1>
+<h1>Add a File</h1>
 <font color='red'>* Required field</font>
 
-<form method=post action="includes/do_add_topic.php">
-
-<p><strong>Topic Title:</strong><font color='red'> *</font><br>
-<input type="text" name="title" size=40 maxlength=150 required>
+<form method=post action="includes/do_add_file_to_entity.php">
 
 <p><strong>Topic Category:</strong><font color='red'> *</font><br>
 <select name="category" required>
@@ -65,9 +55,9 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 	?>
 </select>
 
-<p><strong>Post Text:</strong><font color='red'> *</font><br>
-<textarea name="text" rows=8 cols=40 wrap=virtual required></textarea>
-<p><button type="submit" name="submit">Add Topic</button></p>
+<p><strong>Upload File:</strong><font color='red'> *</font><br>
+
+<p><button type="submit" name="submit">Upload File</button></p>
 </form>
 
 <?php
