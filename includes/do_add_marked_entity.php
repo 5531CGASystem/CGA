@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($success === true) {
             if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
               $link->autocommit(false);
-              $sql = "INSERT INTO files (file_name, file_location, thread_id, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', '$target_file', 1," .$_SESSION['id'] . ");";
+              $sql = "INSERT INTO attachments (file_name, file_location, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', '$target_file', " .$_SESSION['id'] . ");";
               //echo "The file " . htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
              
               if ($link->query($sql) === TRUE) {
@@ -150,3 +150,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("location: ../index.php");
     exit;
 }
+?>
