@@ -124,4 +124,22 @@ echo "<p></p>";
 echo "Files uploaded to this entity:";
 echo "<p></p>";
 echo "<table><tbody><tr><th>File Name</th><th>Author</th><th>Date Uploaded</th><th>Last Modified</th><th>Downloaded by</th><th>Viewable To</th><th>Deleted?</th></tr>";
+// Get marked entity data
+$data = $link->query("SELECT mf.file_id, mf.file_name, mf.file_location, mf.uploaded_at, u.username, mf.viewable_to, mf.description FROM marked_entity_files mf, users u WHERE mf.marked_entity_id=" . $_SESSION['entity_id'] . " and mf.uploaded_by = u.user_id");
+if($data -> num_rows>0){
+    echo "<tb>";
+    while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
+
+        $file_id = $row[0];
+        $file_name = $row[1];
+        $file_location = $row[2];
+        $uploaded_at = $row[3];
+        $uploaded_by = $row[4];
+        $viewable_to = $row[5];
+        $description = $row[6];
+        echo "<tr><td> <a href='download.php?name=". $file_location ."'> " . $file_name . "</a></td><td>" . $uploaded_by . "</td><td>" . $uploaded_at . "</td><td>" . "last_modified" . "</td><td>" . "downloaded_by" . "</td><td>" . $viewable_to . "</td><td>" . "is_deleted" . "</td></tr>";
+        
+    }
+    echo "</tbody></table>";
+}
 ?>
