@@ -62,6 +62,7 @@ if (isset($_SESSION['error'])){
 $data = $link->query("SELECT * FROM marked_entities WHERE marked_entity_id=" . $_SESSION['entity_id']);
 if($data -> num_rows>0){
     while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
+        $attachment_id = $row[8];
         $section_id = $row[1];
         $name = $row[2];
         $post_date = $row[3];
@@ -69,7 +70,12 @@ if($data -> num_rows>0){
         $type = $row[5];
         $work_type = $row[6];
         $viewable_to = $row[7];
-        $file = $row[8];
+        if($attachment_id != null && trim($attachment_id) != ''){
+            $attachment_data = $link->query("SELECT * FROM attachments WHERE file_id = $attachment_id ");
+            $attachment_row = mysqli_fetch_row($attachment_data);
+            $file = $attachment_row[1];
+            $real_file_name = $attachment_row[2];
+        }
         $desc = $row[9];
     }
 }
@@ -112,7 +118,7 @@ echo "Due date: <font color='darkblue'>" . $due_date . "</font><br>";
 echo "Type: <font color='darkblue'>" . $type . "</font><br>";
 echo "Work Type: <font color='darkblue'>" . ucfirst($work_type) . "</font><br>";
 echo "Viewable to (assigned to): <font color='darkblue'>" . $view . "</font><br>";
-echo "File attachment: <font color='darkblue'>" . $file . "</font><br>";
+echo "File attachment: <a href='download.php?name=".$real_file_name."'> $file </a><br>";
 echo "Description: <font color='darkblue'>" . $desc . "</font><br>";
 echo "<p></p>";
 echo "Files uploaded to this entity:";
