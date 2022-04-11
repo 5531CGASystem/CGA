@@ -66,7 +66,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Check if $success is set to false by an error
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $sql = "INSERT INTO attachments (file_name, file_location, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', " . "'" . mysqli_real_escape_string($link,$target_file_name) . "', " .$_SESSION['id'] . ")";
+            $sql = "INSERT INTO attachments (file_name, file_location, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', '" .  mysqli_real_escape_string($link,$target_file_name) . "', " . $_SESSION['id'] . ")";
 
             if ($link->query($sql) === TRUE) {
                 $file_id = $link->insert_id;
