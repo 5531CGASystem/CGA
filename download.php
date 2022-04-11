@@ -9,6 +9,8 @@ if(!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"] === true){
 }
 $name= realpath("uploads/".$_GET['name']);
 
+//TODO handle when name=false i.e file doesn't exist on the server.
+
     header('Content-Description: File Transfer');
     header('Content-Type: application/force-download');
     header("Content-Disposition: attachment; filename=\"" . basename($name) . "\";");

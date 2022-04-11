@@ -18,7 +18,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 <h1>Add a Topic</h1>
 <font color='red'>* Required field</font>
 
-<form method=post action="includes/do_add_topic.php">
+<form method=post action="includes/do_add_topic.php" enctype="multipart/form-data">
 
 <p><strong>Topic Title:</strong><font color='red'> *</font><br>
 <input type="text" name="title" size=40 maxlength=150 required>
@@ -67,6 +67,8 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 
 <p><strong>Post Text:</strong><font color='red'> *</font><br>
 <textarea name="text" rows=8 cols=40 wrap=virtual required></textarea>
+<p><strong>Add file:</strong><br>
+<input type="file" name="fileToUpload" id="fileToUpload" accept=".pdf,.zip,.PDF,.ZIP"></p>
 <p><button type="submit" name="submit">Add Topic</button></p>
 </form>
 
