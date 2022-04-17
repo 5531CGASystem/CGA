@@ -9,6 +9,21 @@ if(!isset($_SERVER['HTTP_REFERER'])){
 }
 ?>
 
+<style>
+.button-link2{
+    color: #333366;
+    border: none;
+    background-color: transparent;
+    font-weight: bold;
+    font-family: Times New Roman;
+    font-size: 17px;
+    padding-left: 0;
+}
+.button-link2:hover{
+    background-color: #CCFFCC;
+}
+</style>
+
 <!-- Displays the coursemanager main content -->
 <div class=content>
 
@@ -47,6 +62,7 @@ if (isset($_SESSION['error'])){
 $data = $link->query("SELECT * FROM marked_entities WHERE marked_entity_id=" . $_SESSION['entity_id']);
 if($data -> num_rows>0){
     while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
+        $attachment_id = $row[8];
         $section_id = $row[1];
         $name = $row[2];
         $post_date = $row[3];
@@ -54,7 +70,12 @@ if($data -> num_rows>0){
         $type = $row[5];
         $work_type = $row[6];
         $viewable_to = $row[7];
-        $file = $row[8];
+        if($attachment_id != null && trim($attachment_id) != ''){
+            $attachment_data = $link->query("SELECT * FROM attachments WHERE file_id = $attachment_id ");
+            $attachment_row = mysqli_fetch_row($attachment_data);
+            $file = $attachment_row[1];
+            $real_file_name = $attachment_row[2];
+        }
         $desc = $row[9];
     }
 }
@@ -97,10 +118,28 @@ echo "Due date: <font color='darkblue'>" . $due_date . "</font><br>";
 echo "Type: <font color='darkblue'>" . $type . "</font><br>";
 echo "Work Type: <font color='darkblue'>" . ucfirst($work_type) . "</font><br>";
 echo "Viewable to (assigned to): <font color='darkblue'>" . $view . "</font><br>";
-echo "File attachment: <font color='darkblue'>" . $file . "</font><br>";
+echo "File attachment: <a href='download.php?name=".$real_file_name."'> $file </a><br>";
 echo "Description: <font color='darkblue'>" . $desc . "</font><br>";
 echo "<p></p>";
 echo "Files uploaded to this entity:";
 echo "<p></p>";
 echo "<table><tbody><tr><th>File Name</th><th>Author</th><th>Date Uploaded</th><th>Last Modified</th><th>Downloaded by</th><th>Viewable To</th><th>Deleted?</th></tr>";
+// Get marked entity data
+$data = $link->query("SELECT mf.file_id, mf.file_name, mf.file_location, mf.uploaded_at, u.username, mf.viewable_to, mf.description FROM marked_entity_files mf, users u WHERE mf.marked_entity_id=" . $_SESSION['entity_id'] . " and mf.uploaded_by = u.user_id");
+if($data -> num_rows>0){
+    echo "<tb>";
+    while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
+
+        $file_id = $row[0];
+        $file_name = $row[1];
+        $file_location = $row[2];
+        $uploaded_at = $row[3];
+        $uploaded_by = $row[4];
+        $viewable_to = $row[5];
+        $description = $row[6];
+        echo "<tr><td> <a href='download.php?name=". $file_location ."'> " . $file_name . "</a></td><td>" . $uploaded_by . "</td><td>" . $uploaded_at . "</td><td>" . "last_modified" . "</td><td>" . "downloaded_by" . "</td><td>" . $viewable_to . "</td><td>" . "is_deleted" . "</td></tr>";
+        
+    }
+    echo "</tbody></table>";
+}
 ?>

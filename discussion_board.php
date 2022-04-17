@@ -21,6 +21,12 @@ if($due_date < $current_date){
 }
 ?>
 
+<style>
+.form-button{
+    margin-block-end: 0em;
+}
+</style>
+
 <!-- Displays the coursemanager main content -->
 <div class=content>
 

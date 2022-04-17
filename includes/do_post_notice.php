@@ -3,8 +3,8 @@ session_start();
 include "./config.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $title = $link->real_escape_string(trim($_POST["title"]));
-    $text = $link->real_escape_string(trim($_POST["text"]));
+    $title = trim($_POST["title"]);
+    $text = trim($_POST["text"]);
 
     // Insert data into notices table
     $sql = "INSERT INTO notices (section_id, title, text, date) VALUES (" . $_SESSION['section_id'] . ", '$title', '$text', SYSDATE())";
