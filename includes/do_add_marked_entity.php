@@ -44,8 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $file_id = 0;
     if (!empty($_FILES) && $_FILES['fileToUpload']['size'] > 0) {
         $UUID = vsprintf( '%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4) );
-        $target_file_name =  $UUID . basename($_FILES["fileToUpload"]["name"]);
-        $target_file = $target_dir . $target_file_name;
+        $target_file = $target_dir . $UUID . basename($_FILES["fileToUpload"]["name"]);
         $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
         // Check file size
@@ -66,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Check if $success is set to false by an error
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $sql = "INSERT INTO attachments (file_name, file_location, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', '" .  mysqli_real_escape_string($link,$target_file_name) . "', " . $_SESSION['id'] . ")";
+            $sql = "INSERT INTO attachments (file_name, file_location, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', '$target_file', " .$_SESSION['id'] . ")";
 
             if ($link->query($sql) === TRUE) {
                 $file_id = $link->insert_id;
