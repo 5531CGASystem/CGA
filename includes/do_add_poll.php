@@ -5,7 +5,7 @@ include "./config.php";
 if (isset($_POST['savePoll'])) {
     $que = trim($_POST['question']);
 	$category_id = trim($_POST["category"]);
-	$sql = "INSERT INTO `poll_questions`( `question`,`user_id` ,`end_date`,`marked_entity_id`,`category_id`) VALUES ('$que', " . $_SESSION['id'] . ",'" . date($_POST['due_date']) . "'," . $_SESSION['entity_id'] . "," . $category_id . ")";
+	$sql = "INSERT INTO `poll_questions`( `question`,`user_id` ,`end_date`,`category_id`) VALUES ('$que', " . $_SESSION['id'] . ",'" . date($_POST['due_date']) . "'," . $category_id . ")";
 	mysqli_query($link, $sql);
 	if (!mysqli_error($link)) {
 		$que_id = mysqli_insert_id($link);
