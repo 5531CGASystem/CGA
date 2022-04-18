@@ -55,10 +55,6 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
         echo "<font color='red'>" . $_SESSION['error'] . "</font><br><br>";
         unset($_SESSION['error']);
     }
-    ?>
-
-    <!-- Display discussion thread -->
-    <?php
     // Get marked entity data
     $data = $link->query("SELECT * FROM marked_entities WHERE marked_entity_id=" . $_SESSION['entity_id']);
     if ($data->num_rows > 0) {
@@ -208,4 +204,5 @@ if($data -> num_rows>0){
         }
         
     }
+}
     ?>
