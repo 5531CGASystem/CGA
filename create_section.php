@@ -33,14 +33,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $section_error = "Section name cannot be empty.";
     } else {
         // Prepare a select statement
-        $sql = "SELECT section_id FROM sections WHERE section_name = ?";
+        $sql = "SELECT section_id FROM sections WHERE section_name = ? and course_id = ?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             // Link - https://www.php.net/manual/en/mysqli-stmt.bind-param.php
-            mysqli_stmt_bind_param($stmt, "s", $param_section_name);
+            mysqli_stmt_bind_param($stmt, "si", $param_section_name, $param_course_id);
 
             // Set parameters
             $param_section_name = trim($_POST["section_name"]);
+            $param_course_id = $_POST["course_id"];
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -64,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare an insert statement
         $sql = "INSERT INTO sections(section_name, prof_id, course_id) VALUES (?, ?, ?)";
         if ($sql == false) {
-            die("ERROR: Could not connect. " . mysqli_error());
+            die("ERROR: Could not connect. " . mysqli_error($link));
         }
 
         if ($stmt = mysqli_prepare($link, $sql)) {

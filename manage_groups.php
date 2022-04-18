@@ -1,13 +1,5 @@
 <?php
-//40197292
-/* Database credentials. */
-define('DB_SERVER', 'rtc5531.encs.concordia.ca');
-define('DB_USERNAME', 'rtc55314');
-define('DB_PASSWORD', 'khbbmG');
-define('DB_NAME', 'rtc55314');
-
-/* Attempt to connect to MySQL database */
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+include "includes/head.php";
 
 // Check connection
 if($link == false) {
@@ -72,7 +64,7 @@ echo "<html>
 <title>Groups</title>
 </head>
 
-<body style='background-color:#faf0e6'>
+<div class=\"content\">
 </br>
 <h1>Section Name: $row2[0]</h1>
 <h1>Groups:</h1>
@@ -82,9 +74,7 @@ echo "<html>
     <button style='background-color:pink'>Create New Group</button>
 </a> 
 </div>
-</br></br>
-</body>
-</html>";
+</br></br>";
 if(mysqli_num_rows($result)==0)
 {
 	echo "No group available under this course";
@@ -121,3 +111,6 @@ echo "</table>";
 }
 mysqli_close($link);
 ?>
+
+</body>
+</html>

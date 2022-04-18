@@ -18,7 +18,9 @@ $row2 = mysqli_fetch_array($sql);
     <h1>Course Name: <?php echo $row2[0] ?></h1>
     <h2>Manage Sections</h2>
     <div class='form-group'>
-        <a href='create_section.php?id=".$id."'>
+        <?php
+        echo "<a href='create_section.php?id=".$id."'>";
+        ?>
             <button style='background-color:pink'>Create New Section</button>
         </a>
     </div>
