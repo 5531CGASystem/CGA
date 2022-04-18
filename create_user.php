@@ -1,11 +1,6 @@
 <?php
 //40197292
-/* Database credentials. */
-define('DB_SERVER', 'rtc5531.encs.concordia.ca');
-define('DB_USERNAME', 'rtc55314');
-define('DB_PASSWORD', 'khbbmG');
-define('DB_NAME', 'rtc55314');
-
+include "includes/head.php";
 /* Attempt to connect to MySQL database */
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 
@@ -127,44 +122,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 ?>
  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Create User</title>
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body style="background-color:#faf0e6">
-    <div class="wrapper">
-        <h1>Create a User</h1>
+    <div class="content">
+        <h1>Create User</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
-                <label>Username<font color='red'> *</font></label>
+                <label>Username:<font color='red'> *</font></label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span style='display: block;'><?php echo $username_err; ?></span>
             </div>   
             </br>			
             <div class="form-group">
-                <label>Password<font color='red'> *</font></label>
+                <label>Password:<font color='red'> *</font></label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
 			</br>
 			<div class="form-group">
-			<label>First Name<font color='red'> *</font></label>
+			<label>First Name:<font color='red'> *</font></label>
 			<input type="text" name="fname" class="form-control"  value="<?php echo $fname; ?>">
 		</div>
 		</br>
 		<div class="form-group">
-			<label>Last Name<font color='red'> *</font></label>
+			<label>Last Name:<font color='red'> *</font></label>
 			<input type="text" name="lname" class="form-control"  value="<?php echo $lname; ?>">
 		</div>
 		</br>
 		<div class="form-group">
-			<label>Email<font color='red'> *</font></label>
+			<label>Email:<font color='red'> *</font></label>
 			<input type="email" name="email" class="form-control"  value="<?php echo $email; ?>">
 		</div>
 		</br>
