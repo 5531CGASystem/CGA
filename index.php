@@ -2,6 +2,17 @@
 include "includes/head.php";
 ?>
 
+<style>
+.notices td:first-child{
+    width:20%;
+    vertical-align: top;
+}
+.notices td:last-child{
+    width:80%;
+    vertical-align: top;
+}
+</style>
+
 <!-- Displays the coursemanager main content -->
 <div class=content>
 
@@ -41,7 +52,7 @@ $data = $link->query("SELECT * FROM notices WHERE section_id=" . $_SESSION['sect
       $title = $row[2];
       $text = $row[3];
       $date = $row[4];
-      echo "<table><tbody>";
+      echo "<table class='notices'><tbody>";
       echo "<tr><th bgcolor='pink'>Post Time:<br>(24-hour format)</th>";
       echo "<td>$date</td></tr>";
       echo "<tr><th bgcolor='pink'>Title:</th>";
