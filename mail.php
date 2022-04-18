@@ -43,14 +43,18 @@ if($data -> num_rows>0){
     if(strpos($reply_all_users, $_SESSION['username'] . ", ") === 0){
         $reply_all_users = substr($reply_all_users, strlen($_SESSION['username'] . ", "));
     }
-    if(substr($reply_all_users,-strlen(", " . $_SESSION['username']))===", " . $_SESSION['username']){
+    elseif(substr($reply_all_users,-strlen(", " . $_SESSION['username']))===", " . $_SESSION['username']){
         $reply_all_users = substr($reply_all_users, 0, -strlen(", " . $_SESSION['username']));
     }
-    $reply_all_users = $sender_un . ", " . $reply_all_users;
-    // $reply_all_users = preg_replace("{, " . $_SESSION['username'] . "}$", "", $reply_all_users);
-    // $reply_all_users = preg_replace("^{" . $_SESSION['username'] . ", }", "", $reply_all_users);
-    // $reply_all_users = str_replace(", " . $_SESSION['username'], "", $reply_all_users);
-    // $reply_all_users = str_replace($_SESSION['username'] . ", ", "", $reply_all_users);
+    elseif(strcmp($reply_all_users, $_SESSION['username']) == 0){
+        $reply_all_users = "";
+    }
+    if($reply_all_users == ""){
+        $reply_all_users = $sender_un;
+    }
+    else{
+        $reply_all_users = $sender_un . ", " . $reply_all_users;
+    }
 }
 
 ?>
