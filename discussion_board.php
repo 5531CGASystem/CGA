@@ -85,7 +85,7 @@ if ($due_date < $current_date) {
                 $data2 = $link->query("SELECT ft.topic_id, ft.title, ft.date created, CONCAT(u.fname,' ',u.lname) author, max(fr.date) last_modified, count(fr.reply_id) num_replies FROM forum_topics ft JOIN forum_replies fr ON ft.topic_id=fr.topic_id JOIN users u ON ft.topic_by=u.user_id WHERE category_id=$cat_id GROUP BY ft.topic_id, ft.title, ft.date, CONCAT(u.fname,' ',u.lname) ORDER BY ft.date;");
                 $data3 = $link->query("SELECT pq.id, pq.question, pq.created_on, CONCAT(u.fname,' ',u.lname) author, pq.end_date, count(pr.id) num_votes FROM poll_questions pq LEFT JOIN poll_responses pr ON pq.id = pr.question_id JOIN users u on pq.user_id = u.user_id where category_id = $cat_id GROUP BY pq.id, pq.question, pq.created_on, CONCAT(u.fname,' ',u.lname) ORDER BY pq.created_on;");
                 if ($data3->num_rows > 0) {
-                    echo $cat_name;
+                    echo $cat_name . ": Polls";
                     echo "<table><tbody><tr><th>Poll Title</th><th>Date Created</th><th>End date</th><th>Poll Created by</th><th>Votes</th><th>Options</th></tr>";
                     while ($row3 = mysqli_fetch_array($data3, MYSQLI_NUM)) {
                         $poll_id = $row3[0];
@@ -108,7 +108,7 @@ if ($due_date < $current_date) {
 
                 if ($data2->num_rows > 0) {
 
-                    echo $cat_name;
+                    echo $cat_name. ": Discussions";
                     echo "<table><tbody><tr><th>Topic Title</th><th>Date Created</th><th>Latest Post</th><th>Author</th><th>Replies</th><th>Options</th></tr>";
                     while ($row2 = mysqli_fetch_array($data2, MYSQLI_NUM)) {
                         $topic_id = $row2[0];
@@ -179,7 +179,7 @@ if ($due_date < $current_date) {
                     }
 
                     if ($poll_data2->num_rows > 0) {
-                        echo $cat_name;
+                        echo $cat_name . ": Polls";
                         echo "<table><tbody><tr><th>Poll Title</th><th>Date Created</th><th>End date</th><th>Poll Created by</th><th>Votes</th><th>Options</th></tr>";
                         while ($row3 = mysqli_fetch_array($poll_data2, MYSQLI_NUM)) {
                             $poll_id = $row3[0];
@@ -201,7 +201,7 @@ if ($due_date < $current_date) {
 
 
                     if ($data2->num_rows > 0) {
-                        echo $cat_name;
+                        echo $cat_name . ": Discussions";
                         echo "<table><tbody><tr><th>Topic Title</th><th>Date Created</th><th>Latest Post</th><th>Author</th><th>Replies</th></tr>";
                         echo "<form method=post action='includes/topic_select.php'>";
                         while ($row2 = mysqli_fetch_array($data2, MYSQLI_NUM)) {
