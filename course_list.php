@@ -38,10 +38,17 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	}
 	
 	// Show courses that are available to them in that role
-	$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id 
-	JOIN users_roles_sections urs ON s.section_id = urs.section_id 
-	WHERE urs.role_id = " . $_SESSION['role_id'] . " AND urs.user_id = " . $_SESSION['id'] . 
-	" ORDER BY 2,3,4,5,11");
+	if($_SESSION['role_id'] == 1){
+		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id ORDER BY 2,3,4,5,11";
+	}
+	else{
+		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id 
+		JOIN users_roles_sections urs ON s.section_id = urs.section_id 
+		WHERE urs.role_id = " . $_SESSION['role_id'] . " AND urs.user_id = " . $_SESSION['id'] . 
+		" ORDER BY 2,3,4,5,11";
+	}
+
+	$data = $link->query($sql);
 	if($data -> num_rows>0){
 		while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
 			// Display the courses available for the logged in user
@@ -65,6 +72,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 			echo "<br>";
 		}
 	}
+
 	?>
 	</table>
 	</div>
