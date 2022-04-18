@@ -10,6 +10,7 @@ a {text-decoration: none}
 <head></head>
 
 <?php
+// Display sidebar for Inbox while in mail
 if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQUEST_URI'],'compose_mail.php') != false || strpos($_SERVER['REQUEST_URI'],'sent_box.php') != false || strpos($_SERVER['REQUEST_URI'],'mail.php') != false){ ?>
 	<ul>
 	<li><a href='compose_mail.php'><b><font color=black>Compose Mail</b></a></li>
@@ -19,18 +20,26 @@ if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQU
 	<li><a href='sent_box.php'><b><font color=black>Sent</b></a></li>
 <?php 
 }
-else{
-?>
+// Display sidebar for Admin while in admin pages
+elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){
+	$_SESSION['admin_pages'] = true;
+	?>
+	<ul>
+	<b>You are an admin.</b><p>
+	<li><a href='manage_users.php'><b><font color=black>Manage Users</b></a></li>
+	<li><a href='manage_courses.php'><b><font color=black>Manage Courses</b></a></li>
+<?php 
+}
+else{ ?>
 
 <body bgcolor=#33cccc>
 <b><font size=4><i><?php echo $_SESSION['code'] . " / " . $_SESSION['term'] . " " . $_SESSION['year'] . "<br>Section " . $_SESSION['section_name'];?></i></font></b><hr>
 <b><font size=4>
-
 <ul>
 
 <!--menu for Sidebar -->	
 <?php
-	// Display sidebar for Admin
+	// Display sidebar for Admin while in a course
 	if($_SESSION['role_id'] == 1){
 		echo "You are an admin.<p>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
@@ -46,7 +55,7 @@ else{
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='manage_students.php'><b><font color=black>Manage Students</b></a></li>";
 		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
-		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
+		echo "<li><a href='manage_groups.php'><b><font color=black>Manage Groups</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";

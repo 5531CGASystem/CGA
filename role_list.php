@@ -31,16 +31,26 @@ input {border:none;background-color:rgba(0,0,0,0);color:blue;text-decoration:und
 	</style>
 	<table border=1>
 	<?php
-	$data = $link->query("SELECT r.role_id, role_name FROM roles r JOIN user_roles ur ON r.role_id = ur.role_id WHERE user_id = " . $_SESSION['id']);
+
+	// Unset admin sidebar and header
+	if (isset($_SESSION['admin_pages'])) {
+		unset($_SESSION['admin_pages']);
+	}
+
+	$data = $link->query("SELECT r.role_id, r.role_name FROM roles r JOIN users_roles_sections urs ON r.role_id = urs.role_id WHERE urs.user_id = " . $_SESSION['id']);
+	$roles_selected = array();
 	if($data -> num_rows>0){
 		// Display the role options that are available for the logged in user
 		while($row = mysqli_fetch_array($data,MYSQLI_NUM))
 		{
 			$role_id = $row[0];
 			$role_name = $row[1];
-			echo "<tr><td align='center'><form name=role_select method=post action=includes/role_select.php><input type=Submit value='" . ucwords($role_name) . "'>
-			<input name=role_id type=hidden value='" . $role_id . "'></form></td></tr>";
-			echo "<br>";
+			if(!in_array($role_id, $roles_selected)){
+				echo "<tr><td align='center'><form name=role_select method=post action=includes/role_select.php><input type=Submit value='" . ucwords($role_name) . "'>
+				<input name=role_id type=hidden value='" . $role_id . "'></form></td></tr>";
+				echo "<br>";
+				array_push($roles_selected, $role_id);
+			}
 		}
 	}
 	?>

@@ -31,14 +31,17 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	</style>
 	<table border=1>
 	<?php
-	// Show courses that they are a TA in
-	if ($_SESSION['role_id'] == 3){
-		$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id JOIN ta_sections ts ON s.section_id = ts.section_id WHERE ts.ta_id = " . $_SESSION['id'] . " ORDER BY 2,3,4,5,12");
+
+	// Unset admin sidebar and header
+	if (isset($_SESSION['admin_pages'])) {
+		unset($_SESSION['admin_pages']);
 	}
-	// Show courses based on other users (admin, instructor, and student roles)
-	else{
-		$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id JOIN users_sections us ON s.section_id = us.section_id WHERE us.user_id = " . $_SESSION['id'] . " ORDER BY 2,3,4,5,12");
-	}
+	
+	// Show courses that are available to them in that role
+	$data = $link->query("SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id 
+	JOIN users_roles_sections urs ON s.section_id = urs.section_id 
+	WHERE urs.role_id = " . $_SESSION['role_id'] . " AND urs.user_id = " . $_SESSION['id'] . 
+	" ORDER BY 2,3,4,5,11");
 	if($data -> num_rows>0){
 		while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
 			// Display the courses available for the logged in user

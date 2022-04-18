@@ -41,17 +41,24 @@ if($data -> num_rows>0){
 
 // Display header for the inbox
 if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQUEST_URI'],'compose_mail.php') != false || strpos($_SERVER['REQUEST_URI'],'sent_box.php') != false || strpos($_SERVER['REQUEST_URI'],'mail.php') != false){ ?>
-<i><b><a href = "role_list.php" target ="_top"><font color=black>Back to Courses</b></i></a> |</font>
-<i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
-<i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
+    <i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
+    <i><b><a href = "role_list.php" target ="_top"><font color=black>Select Course</b></i></a> |</font>
+    <i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
 <?php }
-else { 
-// Display header for the course pages?>
-<i><b><a href = "index.php" target ="_top"><font color=black>Home</b></i></a> |</font>
-<i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
-<i><b><a href = "role_list.php" target ="_top"><font color=black>Switch Access Role</b></i></a> |</font>
-<i><b><a href = "course_list.php" target ="_top"><font color=black>Switch Course</b></i></a> |</font>
-<i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
+// Display header for admin
+elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){ ?>
+    <i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
+    <i><b><a href = "role_list.php" target ="_top"><font color=black>Switch Access Role</b></i></a> |</font>
+    <i><b><a href = "course_list.php" target ="_top"><font color=black>Select Course</b></i></a> |</font>
+    <i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
+<?php }
+// Display header for the course pages
+else { ?>
+    <i><b><a href = "index.php" target ="_top"><font color=black>Home</b></i></a> |</font>
+    <i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
+    <i><b><a href = "role_list.php" target ="_top"><font color=black>Switch Access Role</b></i></a> |</font>
+    <i><b><a href = "course_list.php" target ="_top"><font color=black>Switch Course</b></i></a> |</font>
+    <i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
 <?php } ?>
 </td>
 </tr>
