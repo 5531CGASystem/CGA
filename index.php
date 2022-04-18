@@ -77,12 +77,6 @@ $data = $link->query("SELECT * FROM notices WHERE section_id=" . $_SESSION['sect
     }
 ?>
 
-<p></p>
-<hr>
-<p></p>
-Latest Discussions
-<p></p>
-
 </div>
 
 </body>
