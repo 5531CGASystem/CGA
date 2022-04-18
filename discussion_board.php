@@ -103,7 +103,7 @@ if ($due_date < $current_date) {
                         echo "<button type='submit' name='delete_poll' value=$poll_id onclick=\"return confirm('Are you sure you want to delete this poll?')\">Delete poll</button>";
                         echo "</form></td></tr>";
                     }
-                    echo "</tbody></table>";
+                    echo "</tbody></table><br>";
                 }
 
                 if ($data2->num_rows > 0) {
@@ -180,7 +180,7 @@ if ($due_date < $current_date) {
 
                     if ($poll_data2->num_rows > 0) {
                         echo $cat_name . ": Polls";
-                        echo "<table><tbody><tr><th>Poll Title</th><th>Date Created</th><th>End date</th><th>Poll Created by</th><th>Votes</th><th>Options</th></tr>";
+                        echo "<table><tbody><tr><th>Poll Title</th><th>Date Created</th><th>End date</th><th>Poll Created by</th><th>Votes</th></tr>";
                         while ($row3 = mysqli_fetch_array($poll_data2, MYSQLI_NUM)) {
                             $poll_id = $row3[0];
                             $poll_title = $row3[1];
@@ -193,8 +193,7 @@ if ($due_date < $current_date) {
                             echo "<td>" . $poll_modified . "</td>";
                             echo "<td>" . $poll_author . "</td>";
                             echo "<td>" . $poll_replies . "</td>";
-                            echo "<button type='submit' name='delete_poll' value=$poll_id onclick=\"return confirm('Are you sure you want to delete this poll?')\">Delete poll</button>";
-                            echo "</form></td></tr>";
+                            echo "</tr>";
                         }
                         echo "</tbody></table><br>";
                     }
