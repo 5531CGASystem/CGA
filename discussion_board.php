@@ -197,7 +197,7 @@ if ($due_date < $current_date) {
                             echo "<button type='submit' name='delete_poll' value=$poll_id onclick=\"return confirm('Are you sure you want to delete this poll?')\">Delete poll</button>";
                             echo "</form></td></tr>";
                         }
-                        echo "</tbody></table>";
+                        echo "</tbody></table><br>";
                     }
 
 
@@ -218,10 +218,10 @@ if ($due_date < $current_date) {
                             echo "<td>" . $topic_author . "</td>";
                             echo "<td>" . $topic_replies . "</td></tr>";
                         }
+                        echo "</form></tbody></table>";
+                        echo "<br>";
                     }
 
-                    echo "</form></tbody></table>";
-                    echo "<br>";
                 }
             }
         }
