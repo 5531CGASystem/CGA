@@ -39,6 +39,10 @@ if (isset($_SESSION['error'])){
   echo "<font color='red'>".$_SESSION['error']."</font>";
   unset($_SESSION['error']);
 }
+if (isset($_SESSION['message'])){
+    echo "<font color='blue'>".$_SESSION['message']."</font>";
+    unset($_SESSION['message']);
+  }
 ?>
 </div>
 
@@ -65,8 +69,9 @@ if (isset($_SESSION['error'])){
 </tr>
 
 <tr>
-   <td align=center colspan=2><a href=reset_password.php>Forgot Password?</a></td>
+   <td align=center colspan=2><a href=change_password.php>Change Password</a></td>
 </tr>
+
 </table>
 <br>
 </form>

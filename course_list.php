@@ -67,7 +67,16 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	</div>
 	<br>
 	<hr>
-	<br>
+	<br>	
+	<?php
+	// Return the number of unread mail this user has
+	$data = $link->query("SELECT COUNT(*) c FROM mail_receivers WHERE receiver_id=" . $_SESSION['id'] . " AND is_read=0");
+	if($data -> num_rows>0){
+		$mail_data = $data->fetch_assoc();
+		$unread = $mail_data['c'];
+	}?>
+	<a href = "inbox.php">View Inbox (<?php echo $unread; ?>)</a><p></p>
+	<a href=change_password.php>Change Password</a><p></p>
 	<a href = "includes/logout.php">Log out</a></font>
 </body>
 
