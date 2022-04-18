@@ -114,6 +114,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     echo "Type: <font color='darkblue'>" . $type . "</font><br>";
     echo "Work Type: <font color='darkblue'>" . ucfirst($work_type) . "</font><br>";
     echo "Viewable to (assigned to): <font color='darkblue'>" . $view . "</font><br>";
+    if(isset($real_file_name) && $real_file_name != null)
     echo "File attachment: <a href='download.php?name=" . $real_file_name . "'> $file </a><br>";
     echo "Description: <font color='darkblue'>" . $desc . "</font><br>";
     echo "<p></p>";
