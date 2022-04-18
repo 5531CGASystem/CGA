@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $data = $link->query("SELECT * FROM users WHERE username='$username' AND password='$current_password'");
     if ($data->num_rows > 0) {
         try{
-            $link->query("UPDATE users SET password='$new_password' WHERE username='$username'");
+            $link->query("UPDATE users SET password='$new_password', reset_password=0 WHERE username='$username'");
             $_SESSION['message'] = "Password has been successfully changed.";
             // Redirect user back to previous page
             header("location: logout.php");

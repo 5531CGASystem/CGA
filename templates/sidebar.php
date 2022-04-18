@@ -42,22 +42,27 @@ else{ ?>
 	// Display sidebar for Admin while in a course
 	if($_SESSION['role_id'] == 1){
 		echo "You are an admin.<p>";
+		echo "<li><a href='manage_users.php'><b><font color=black>Manage Students</b></a></li>";
+		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
+		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
+		echo "<p></p>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
-		echo "<li><a href='manage_users.php'><b><font color=black>Manage Users</b></a></li>";
-		echo "<li><a href='manage_courses.php'><b><font color=black>Manage Courses</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
+		echo "<p></p>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Instructor
 	elseif($_SESSION['role_id'] == 2){
 		echo "You are an instructor.<p>";
-		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='manage_students.php'><b><font color=black>Manage Students</b></a></li>";
 		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
-		echo "<li><a href='manage_groups.php'><b><font color=black>Manage Groups</b></a></li>";
+		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
+		echo "<p></p>";
+		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
+		echo "<p></p>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Teaching Assistant
@@ -65,6 +70,7 @@ else{ ?>
 		echo "You are a TA.<p>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
+		echo "<p></p>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Student
@@ -72,6 +78,7 @@ else{ ?>
 		echo "You are a student.<p>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
+		echo "<p></p>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 }

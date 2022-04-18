@@ -20,8 +20,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $db_password = $user_data['password'];
         $db_fname = $user_data['fname'];
         $db_lname = $user_data['lname'];
+        $db_reset_password = $user_data['reset_password'];
         
-        if($db_password==$password){  
+        if($db_password==$password){
+            // Check if user needs to reset password
+            if($db_reset_password == 1){
+                // Redirect user to change password page
+                header("location: ../change_password.php");
+                exit;
+            }
+            
             // Store data in session variables
             $_SESSION["loggedin"] = true;
             $_SESSION["id"] = $db_user_id;
