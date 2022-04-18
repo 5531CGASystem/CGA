@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include "./config.php";
 if ($link == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
