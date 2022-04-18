@@ -149,8 +149,6 @@ if (!empty($course_error)) {
         </div>
     </form>
 </div>
-</div>
-</div>
 
 </body>
 
