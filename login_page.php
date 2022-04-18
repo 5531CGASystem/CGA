@@ -4,8 +4,10 @@ include "./includes/config.php";
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  if(isset($_SESSION['role_id']) && isset($_SESSION['section_id'])){
     header("location: index.php");
     exit;
+  }
 }
 ?>
 
