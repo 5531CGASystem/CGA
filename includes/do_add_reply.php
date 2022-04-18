@@ -38,6 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Check file size
             if ($_FILES["fileToUpload"]["size"] > 1000000) {
                 $_SESSION['error'] = "Sorry, your file is too large.";
+                unset($_SESSION['message']);
                 // Redirect user back to previous page
                 header("location: ../discussion.php");
                 exit;
@@ -46,6 +47,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             // Allow certain file formats
             if (!strcasecmp($fileType, "pdf") &&  !strcasecmp($fileType, "zip")) {
                 $_SESSION['error'] = "Sorry, only pdf or zip files are allowed.";
+                unset($_SESSION['message']);
                 // Redirect user back to previous page
                 header("location: ../discussion.php");
                 exit;
@@ -58,9 +60,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $link->commit();
                     $link->autocommit(true);
                     $_SESSION['message'] = "Reply has been successfully posted.";
-                    header("location: ../discussion_board.php");
+                    header("location: ../discussion.php");
                 } else {
                     $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<p></p>Error: " . $sql . "<br>" . $link->error;
+                    unset($_SESSION['message']);
                     $link->rollback();
                     $link->autocommit(true);
                     // Redirect user back to previous page
@@ -69,6 +72,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 }
             } else {
                 $_SESSION['error'] = "Sorry, there was an error uploading your file.";
+                unset($_SESSION['message']);
                 $link->rollback();
                 $link->autocommit(true);
                 // Redirect user back to previous page
@@ -79,11 +83,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $link->commit();
             $link->autocommit(true);
             $_SESSION['message'] = "Reply has been successfully posted.";
-            header("location: ../discussion_board.php");
+            header("location: ../discussion.php");
         }
     } catch (Exception $e) {
 
         $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<p></p>Error: " . $e;
+        unset($_SESSION['message']);
         $link->rollback();
         $link->autocommit(true);
         // Redirect user back to previous page

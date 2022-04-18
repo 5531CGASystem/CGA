@@ -4,13 +4,15 @@ include "./config.php";
 $target_dir = "../uploads/";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get POST
+    $cat_id = $link->real_escape_string(trim($_POST["category"]));
 
     // Upload file to entity
     $target_dir = "../uploads/";
     $file_id = 0;
     if (!empty($_FILES) && $_FILES['fileToUpload']['size'] > 0) {
         $UUID = vsprintf( '%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4) );
-       $target_file_name = $UUID . basename($_FILES["fileToUpload"]["name"]);
+        $target_file_name = $UUID . basename($_FILES["fileToUpload"]["name"]);
         $target_file = $target_dir . $target_file_name;
         $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         
@@ -26,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!strcasecmp($fileType, "pdf") &&  !strcasecmp($fileType, "zip")) {
             $_SESSION['error'] = "Sorry, only pdf or zip files are allowed.";
             // Redirect user back to previous page
-            header("location: ../add_marked_entity.php");
+            header("location: ../add_file_to_entity.php");
             exit;
         }
 
@@ -35,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Insert file into table
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $sql = "INSERT INTO marked_entity_files (file_name, file_location, marked_entity_id, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', " . "'" . mysqli_real_escape_string($link,$target_file_name) . "', ". $_SESSION['entity_id'] ."," .$_SESSION['id'] . ")";
+            $sql = "INSERT INTO marked_entity_files (file_name, file_location, marked_entity_id, category_id, uploaded_by) VALUES (" . "'" . mysqli_real_escape_string($link,basename( $_FILES['fileToUpload']['name'])) . "', " . "'" . mysqli_real_escape_string($link,$target_file_name) . "', " . $_SESSION['entity_id'] . ", $cat_id, " .$_SESSION['id'] . ")";
 
             if ($link->query($sql) === TRUE) {
                 $file_id = $link->insert_id;
@@ -43,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $link->autocommit(true);
                 $_SESSION['message'] = "File has been successfully uploaded.";
                 // Redirect user back to previous page
-                header("location: ../discussion_board.php");
+                header("location: ../entity_summary.php");
                 
                 // Log
                 $f_sql = addslashes($sql);

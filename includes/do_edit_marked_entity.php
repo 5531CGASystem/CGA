@@ -114,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $group_data = $data->fetch_assoc();
                     $group_name = $group_data['name'];
                 }
-                $name_groups = "Private Discussion - " . $group_name;
+                $name_groups = "Private - " . $group_name;
                 $sql_groups = "INSERT INTO forum_categories (marked_entity_id, name, viewable_to) 
                     VALUES (" . $_SESSION['entity_id'] . ", '$name_groups', ',$value,')";
                 try{

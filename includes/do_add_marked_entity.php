@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $group_data = $data->fetch_assoc();
                     $group_name = $group_data['name'];
                 }
-                $name_groups = "Private Discussion - " . $group_name;
+                $name_groups = "Private - " . $group_name;
                 $sql_groups = "INSERT INTO forum_categories (marked_entity_id, name, viewable_to) 
                     VALUES ($marked_entity_id, '$name_groups', ',$value,')";
                 try{
@@ -134,7 +134,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     // Create public discussion board
     $sql2 = "INSERT INTO forum_categories (marked_entity_id, name, viewable_to) 
-    VALUES ($marked_entity_id, 'Public Discussion', ',all,')";
+    VALUES ($marked_entity_id, 'Public', ',all,')";
 
     // Check if all sql data were successfully inserted
     if($success){
