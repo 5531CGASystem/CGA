@@ -1,13 +1,7 @@
 <?php
 //40197292
 /* Database credentials. */
-define('DB_SERVER', 'rtc5531.encs.concordia.ca');
-define('DB_USERNAME', 'rtc55314');
-define('DB_PASSWORD', 'khbbmG');
-define('DB_NAME', 'rtc55314');
-
-/* Attempt to connect to MySQL database */
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+include "includes/head.php";
 
 // Check connection
 if($link == false) {
@@ -15,14 +9,10 @@ if($link == false) {
 }
 $result = mysqli_query($link,"SELECT * FROM courses");
 
-echo "<html>
-<head>
-<title>Courses</title>
-</head>
 
-<body style='background-color:#faf0e6'>
-</br>
-<h1>Courses:</h1>
+?>
+<div class="content">
+<h1>Manage Courses</h1>
 </br>
 <div  class='form-group'>
    <a href='create_course.php'>
@@ -30,8 +20,7 @@ echo "<html>
 </a> 
 </div>
 </br></br>
-</body>
-</html>";
+<?php
 
 echo "<table border='1'>
 <tr>
@@ -42,7 +31,7 @@ echo "<table border='1'>
 <th>Year</th>
 <th>Start_Date</th>
 <th>End_Date</th>
-<th></th>
+<th>Options</th>
 </tr>";
 
 while($row = mysqli_fetch_array($result))
@@ -62,3 +51,7 @@ echo "</table>";
 
 mysqli_close($link);
 ?>
+
+</div>
+</body>
+</html>
