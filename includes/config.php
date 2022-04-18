@@ -1,8 +1,8 @@
 <?php
 /* Database credentials. */
-define('DB_SERVER', 'rtc5531.encs.concordia.ca');
-define('DB_USERNAME', 'rtc55314');
-define('DB_PASSWORD', 'khbbmG');
+define('DB_SERVER', '127.0.0.1');
+define('DB_USERNAME', 'root');
+define('DB_PASSWORD', 'root');
 define('DB_NAME', 'rtc55314');
 
 /* Attempt to connect to MySQL database */

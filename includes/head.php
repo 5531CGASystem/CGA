@@ -92,6 +92,12 @@ pre{
 
 <html>
 <head>
+<script type="text/javascript">
+	function addOption(){
+    
+		document.getElementById("options").insertAdjacentHTML('afterend', '<div><input class="form-control" type="text" name="option[]" value="" /></div>');
+	}
+	</script>
 <Title>CGA - The CrsMgr Group-work Assistant</title>
 </head>
 
