@@ -19,13 +19,13 @@ echo "<div class='content'>
 
 </br>
 <h1>Section Name: $row2[0]</h1>
-<h2>Section Users:</h2>
-</br>
+<h2>Students:</h2>
 <div  class='form-group'>
    <a href='create_section_user.php?id=".$id."'>
-    <button style='background-color:pink'>Associate User to Section</button>
+    <button style='background-color:pink'>Add Students</button>
 </a> 
-</div>";
+</div><br>";
+
 if(mysqli_num_rows($result)==0)
 {
 	echo "No user available under this section";
@@ -34,15 +34,15 @@ else
 {
     echo "<table border='1'>
     <tr>
-     <th>User Name</th>
-	 <th></th>
+     <th>Student User Name</th>
+	 <th>Options</th>
     </tr>";
 
 while($row = mysqli_fetch_array($result))
 {
 echo "<tr>";
 echo "<td>" . $row['username'] . "</td>";
-echo "<td><a href='delete_section_user.php?section_id=".$id."&user_id=".$row['user_id']."'>Delete</a></td>";
+echo "<td><a href='delete_section_user.php?section_id=".$id."&user_id=".$row['user_id']."'>Remove</a></td>";
 echo "</tr>";
 }
 echo "</table>";

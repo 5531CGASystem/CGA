@@ -118,7 +118,7 @@ foreach($rows->group_team as $team_member)
 	
 	echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date;
 	echo "<form method='post' action=manage_groups.php?id=".$id.">";
-	echo "<input type='submit' value='Change Leader'>";
+	echo "<input type='submit' value='Choose as Group Leader'>";
 	echo "<input type='hidden' value='".$team_member->user_id."' name='user_id'>";
 	echo "<input type='hidden' value='".$rows->group_id."' name='group_id'>";
 	echo "</form>";

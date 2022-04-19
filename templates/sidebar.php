@@ -48,8 +48,8 @@ else{ ?>
 	// Display sidebar for Admin while in a course
 	if($_SESSION['role_id'] == 1){
 		echo "You are an admin.<br><br>";
-		echo "<li><a href='manage_users.php'><b><font color=black>Manage Students</b></a></li>";
-		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
+		echo "<li><a href='manage_section_users.php?id=".$_SESSION['section_id']."'><b><font color=black>Manage Students</b></a></li>";
+		echo "<li><a href='manage_section_tas.php?id=".$_SESSION['section_id']."'><b><font color=black>Manage Teaching Assistants</b></a></li>";
 		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
 		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
@@ -61,8 +61,8 @@ else{ ?>
 	// Display sidebar for Instructor
 	elseif($_SESSION['role_id'] == 2){
 		echo "You are an instructor.<br><br>";
-		echo "<li><a href='manage_students.php'><b><font color=black>Manage Students</b></a></li>";
-		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
+		echo "<li><a href='manage_section_users.php?id=".$_SESSION['section_id']."'><b><font color=black>Manage Students</b></a></li>";
+		echo "<li><a href='manage_section_tas.php?id=".$_SESSION['section_id']."'><b><font color=black>Manage Teaching Assistants</b></a></li>";
 		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
 		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";

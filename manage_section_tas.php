@@ -19,14 +19,13 @@ echo "
 <div class='content'>
 </br>
 <h1>Section Name: $row2[0]</h1>
-<h2>Section TAs:</h2>
-</br>
+<h2>Current TAs:</h2>
 <div  class='form-group'>
 <a href='create_section_ta.php?id=".$id."'>
-<button style='background-color:pink'>Associate TA to Section</button>
+<button style='background-color:pink'>Add TA</button>
 </a> 
 </div>
-</br></br>";
+</br>";
 if(mysqli_num_rows($result)==0)
 {
 echo "No TA available under this section";
@@ -36,7 +35,7 @@ else
 echo "<table border='1'>
 <tr>
  <th>TA</th>
- <th></th>
+ <th>Options</th>
 </tr>";
 
 while($row = mysqli_fetch_array($result))
