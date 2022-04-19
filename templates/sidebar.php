@@ -12,6 +12,8 @@ a {text-decoration: none}
 <?php
 // Display sidebar for Inbox while in mail
 if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQUEST_URI'],'compose_mail.php') != false || strpos($_SERVER['REQUEST_URI'],'sent_box.php') != false || strpos($_SERVER['REQUEST_URI'],'mail.php') != false){ ?>
+	<body bgcolor=#33cccc>
+	<b><font size=4>
 	<ul>
 	<li><a href='compose_mail.php'><b><font color=black>Compose Mail</b></a></li>
 	<p></p>
@@ -24,6 +26,8 @@ if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQU
 elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){
 	$_SESSION['admin_pages'] = true;
 	?>
+	<body bgcolor=#33cccc>
+	<b><font size=4>
 	<ul>
 	<b>You are an admin.</b><br><br>
 	<li><a href='manage_users.php'><b><font color=black>Manage Users</b></a></li>
@@ -45,11 +49,11 @@ else{ ?>
 		echo "<li><a href='manage_users.php'><b><font color=black>Manage Students</b></a></li>";
 		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
 		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Instructor
@@ -58,11 +62,11 @@ else{ ?>
 		echo "<li><a href='manage_students.php'><b><font color=black>Manage Students</b></a></li>";
 		echo "<li><a href='manage_ta.php'><b><font color=black>Manage Teaching Assistants</b></a></li>";
 		echo "<li><a href='manage_groups.php?id=". $_SESSION['section_id'] ."'><b><font color=black>Manage Groups</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Teaching Assistant
@@ -70,7 +74,7 @@ else{ ?>
 		echo "You are a TA.<br><br>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 	// Display sidebar for Student
@@ -78,7 +82,7 @@ else{ ?>
 		echo "You are a student.<br><br>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
-		echo "<br><br>";
+		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
 }
