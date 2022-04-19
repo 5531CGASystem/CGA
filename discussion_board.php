@@ -103,7 +103,13 @@ if ($due_date < $current_date) {
                         echo "<button type='submit' name='delete_poll' value=$poll_id onclick=\"return confirm('Are you sure you want to delete this poll?')\">Delete poll</button>";
                         echo "</form></td></tr>";
                     }
-                    echo "</tbody></table><br>";
+                    echo "</tbody></table>";
+                    // Delete category for admin or instructor
+                    if ($_SESSION['role_id'] < 3) {
+                        echo "<form method=post action='includes/delete_category.php'>";
+                        echo "<button type='submit' name='delete_cat' value=$cat_id onclick=\"return confirm('Are you sure you want to delete this category? It will delete the discussions AND polls under this category.')\">Delete Category</button>";
+                        echo "</form>";
+                    }
                 }
 
                 if ($data2->num_rows > 0) {
@@ -130,7 +136,7 @@ if ($due_date < $current_date) {
                     // Delete category for admin or instructor
                     if ($_SESSION['role_id'] < 3) {
                         echo "<form method=post action='includes/delete_category.php'>";
-                        echo "<button type='submit' name='delete_cat' value=$cat_id onclick=\"return confirm('Are you sure you want to delete this category?')\">Delete Category</button>";
+                        echo "<button type='submit' name='delete_cat' value=$cat_id onclick=\"return confirm('Are you sure you want to delete this category? It will delete the discussions AND polls under this category.')\">Delete Category</button>";
                         echo "</form>";
                     }
                     echo "<br>";

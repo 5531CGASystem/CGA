@@ -43,7 +43,6 @@ if(!isset($_SERVER['HTTP_REFERER'])){
         $entity_data = $data->fetch_assoc();
         $view_string = $entity_data['viewable_to'];
         $view_string = substr($view_string, 1, -1);
-        //$view_array = explode(',', $view_string);
       }
       // Add group checkboxes to select from
         $data = $link->query("SELECT group_id,name FROM rtc55314.groups WHERE group_id IN ($view_string)");
