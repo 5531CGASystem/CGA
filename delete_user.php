@@ -1,5 +1,9 @@
 <?php
+//Authors:
 //40197292
+//40215517
+//40196855
+
 include "includes/head.php";
 
 // Check connection
@@ -11,17 +15,21 @@ if(!isset($_GET['id'])){
         die('id not provided');
     }
 $id = (int)$_GET['id'];
- 
- $link->query('SET foreign_key_checks = 0');
-   $sql = "DELETE FROM users WHERE user_id = '$id'";
-   $link->query('SET foreign_key_checks = 0');
-    if ($link->query($sql) === TRUE) {
-				 
-				 echo "User deleted successfully!!";
-                  } else {
-                     echo "Error deleting record: " . $link->error;
-                }
-    // Close connection
-    mysqli_close($link);
+
+$sql = "UPDATE users SET isactive=0 WHERE user_id='$id'";
+if ($link->query($sql) === TRUE) {
+    $_SESSION['message'] = "User deleted successfully.";
+    // Redirect user back to previous page
+    header("location: manage_users.php");
+    exit;
+} else {
+    $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<br><br>Error: " . $link->error;
+    // Redirect user back to previous page
+    header("location: manage_users.php");
+    exit;
+}
+
+// Close connection
+mysqli_close($link);
 
 ?>
