@@ -38,8 +38,7 @@ input {border:none;background-color:rgba(0,0,0,0);color:blue;text-decoration:und
 	}
 
 	// Check if user is admin
-	$data = $link->query("SELECT isadmin FROM users WHERE user_id = " . $_SESSION['id']);
-	if($data -> num_rows>0){
+	if($_SESSION['isadmin'] == 1){
 		echo "<tr><td align='center'><form name=role_select method=post action=includes/role_select.php><input type=Submit value='Admin'>
 			<input name=role_id type=hidden value='1'></form></td></tr>";
 	}

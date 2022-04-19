@@ -21,6 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $db_fname = $user_data['fname'];
         $db_lname = $user_data['lname'];
         $db_reset_password = $user_data['reset_password'];
+        $db_isadmin = $user_data['isadmin'];
         
         if($db_password==$password){
             // Check if user needs to reset password
@@ -36,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $_SESSION["username"] = $username;
             $_SESSION["fname"] = $db_fname;
             $_SESSION["lname"] = $db_lname;
+            $_SESSION["isadmin"] = $db_isadmin;
                         
             // Redirect user to role list page
             header("location: ../role_list.php");
