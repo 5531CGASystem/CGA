@@ -27,7 +27,7 @@ input {border:none;background-color:rgba(0,0,0,0);color:blue;text-decoration:und
 	<font size=4>
 	<div class='role'>
 	<style type="text/css">
-	.role{margin-top: -70px;}
+	.role{margin-top: 20px;}
 	</style>
 	<table border=1>
 	<?php
@@ -48,7 +48,6 @@ input {border:none;background-color:rgba(0,0,0,0);color:blue;text-decoration:und
 			if(!in_array($role_id, $roles_selected)){
 				echo "<tr><td align='center'><form name=role_select method=post action=includes/role_select.php><input type=Submit value='" . ucwords($role_name) . "'>
 				<input name=role_id type=hidden value='" . $role_id . "'></form></td></tr>";
-				echo "<br>";
 				array_push($roles_selected, $role_id);
 			}
 		}

@@ -10,6 +10,9 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
 ?>
 
 <style>
+.post{
+    width:67%;
+}
 .post td:first-child{
     width:80%;
     vertical-align: top;

@@ -27,7 +27,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	<font size=4>
 	<div class='course'>
 	<style type="text/css">
-	.course{margin-top: -28px;}
+	.course{margin-top: 20px;}
 	</style>
 	<table border=1>
 	<?php
@@ -69,7 +69,6 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 			echo "<input name=year type=hidden value='" . $year . "'>";
 			echo "<input name=section_id type=hidden value='" . $section_id . "'>";
 			echo "<input name=section_name type=hidden value='" . $section_name . "'></form></td></tr>";
-			echo "<br>";
 		}
 	}
 
