@@ -143,7 +143,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $link->query($sql2);
             $link->commit();
             $link->autocommit(true);
-            $link->query("SET FOREIGN_KEY_CHECKS=1");
             $_SESSION['message'] = "Marked entity has been successfully added.";
             // Redirect user back to previous page
             header("location: ../marked_entities.php");
@@ -160,6 +159,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // Log
         $f_sql = addslashes($sql1);
         $link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES ($marked_entity_id, " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+        $link->query("SET FOREIGN_KEY_CHECKS=1");
     }
     else{
         $link->rollback();

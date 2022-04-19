@@ -13,9 +13,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if ($link->query($sql) === TRUE) {
             $reply_id = $link->insert_id;
         }
-        $_SESSION['message'] = "Reply has been successfully posted.";
-        // Redirect user back to previous page
-        header("location: ../discussion.php");
     }
     catch(Exception $e){
         $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<p></p>Error: " . $e;
@@ -25,7 +22,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     try {
-
         // Upload file module
         $target_dir = "../uploads/";
 
@@ -39,6 +35,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if ($_FILES["fileToUpload"]["size"] > 1000000) {
                 $_SESSION['error'] = "Sorry, your file is too large.";
                 unset($_SESSION['message']);
+                $link->rollback();
+                $link->autocommit(true);
                 // Redirect user back to previous page
                 header("location: ../discussion.php");
                 exit;
@@ -48,6 +46,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             if (!strcasecmp($fileType, "pdf") &&  !strcasecmp($fileType, "zip")) {
                 $_SESSION['error'] = "Sorry, only pdf or zip files are allowed.";
                 unset($_SESSION['message']);
+                $link->rollback();
+                $link->autocommit(true);
                 // Redirect user back to previous page
                 header("location: ../discussion.php");
                 exit;
@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $_SESSION['message'] = "Reply has been successfully posted.";
                     header("location: ../discussion.php");
                 } else {
-                    $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<p></p>Error: " . $sql . "<br>" . $link->error;
+                    $_SESSION['error'] = "Sorry, we have run into a database error. Please try again.<p></p>Error: " . $sql3 . "<br>" . $link->error;
                     unset($_SESSION['message']);
                     $link->rollback();
                     $link->autocommit(true);
@@ -97,7 +97,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     // Log
     $f_sql = addslashes($sql);
-    $link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES ($marked_entity_id, " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+    $link->query("SET FOREIGN_KEY_CHECKS=0");
+    $link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES (" . $_SESSION['entity_id'] . ", " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+    $link->query("SET FOREIGN_KEY_CHECKS=1");
 }
 else{
     // Redirect user to welcome page

@@ -45,7 +45,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
         $view_string = substr($view_string, 1, -1);
       }
       // Add group checkboxes to select from
-        $data = $link->query("SELECT group_id,name FROM rtc55314.groups WHERE group_id IN ($view_string)");
+        $data = $link->query("SELECT group_id,name FROM `groups` WHERE group_id IN ($view_string)");
         if($data -> num_rows>0){
           while($row = mysqli_fetch_array($data,MYSQLI_NUM))
           {

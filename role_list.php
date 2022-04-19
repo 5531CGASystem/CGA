@@ -37,6 +37,13 @@ input {border:none;background-color:rgba(0,0,0,0);color:blue;text-decoration:und
 		unset($_SESSION['admin_pages']);
 	}
 
+	// Check if user is admin
+	$data = $link->query("SELECT isadmin FROM users WHERE user_id = " . $_SESSION['id']);
+	if($data -> num_rows>0){
+		echo "<tr><td align='center'><form name=role_select method=post action=includes/role_select.php><input type=Submit value='Admin'>
+			<input name=role_id type=hidden value='1'></form></td></tr>";
+	}
+
 	$data = $link->query("SELECT r.role_id, r.role_name FROM roles r JOIN users_roles_sections urs ON r.role_id = urs.role_id WHERE urs.user_id = " . $_SESSION['id']);
 	$roles_selected = array();
 	if($data -> num_rows>0){

@@ -34,7 +34,7 @@ if ($_SESSION['role_id']>2){
       <label for="all"><input type="checkbox" name="view[]" value=",all,"/>Individual</label>
       <?php
       // Add group checkboxes to select from
-      $data = $link->query("SELECT group_id,name FROM rtc55314.groups WHERE section_id=" . $_SESSION['section_id']);
+      $data = $link->query("SELECT group_id,name FROM `groups` WHERE section_id=" . $_SESSION['section_id']);
       if($data -> num_rows>0){
         while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
           // Display the categories available

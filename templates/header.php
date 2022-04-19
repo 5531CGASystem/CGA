@@ -46,7 +46,7 @@ if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQU
     <i><b><a href = "includes/logout.php" target ="_top"><font color=black>Logout</b></i></a></font><br>
 <?php }
 // Display header for admin
-elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){ ?>
+elseif((isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false) || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){ ?>
     <i><b><a href = "inbox.php" target ="_top"><font color=black>Inbox (<?php echo $unread; ?>)</b></i></a> |</font>
     <i><b><a href = "role_list.php" target ="_top"><font color=black>Switch Access Role</b></i></a> |</font>
     <i><b><a href = "course_list.php" target ="_top"><font color=black>Select Course</b></i></a> |</font>

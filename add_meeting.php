@@ -21,7 +21,7 @@ include "includes/head.php";
 <select name="group" required>
 	<option selected disabled value="">Please choose a group</option>
     <?php
-    $data = $link->query("SELECT gu.group_id, g.name FROM group_users gu JOIN rtc55314.groups g ON g.group_id=gu.group_id WHERE gu.user_id=" . $_SESSION['id'] . " AND gu.left_group_date is null AND g.section_id=" . $_SESSION['section_id']);
+    $data = $link->query("SELECT gu.group_id, g.name FROM group_users gu JOIN `groups` g ON g.group_id=gu.group_id WHERE gu.user_id=" . $_SESSION['id'] . " AND gu.left_group_date is null AND g.section_id=" . $_SESSION['section_id']);
         if($data -> num_rows>0){
             while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
                 $group_id = $row[0];

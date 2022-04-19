@@ -5,16 +5,12 @@ include "./config.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $poll_id = $link->real_escape_string(trim($_POST["delete_poll"]));
 
-    // Delete topic in forum_topics sql table
-    $sql = "DELETE FROM poll_responses WHERE question_id=$poll_id";
-    $sql1 = "DELETE FROM poll_options WHERE question_id=$poll_id";
-    $sql2 = "DELETE FROM poll_questions WHERE id=$poll_id";
+    // Delete poll in poll_questions sql table
+    $sql = "DELETE FROM poll_questions WHERE id=$poll_id";
 
     // Check whether delete statement work
     try{
         $link->query($sql);
-        $link->query($sql1);
-        $link->query($sql2);
         $_SESSION['message'] = "Poll has been successfully deleted.";
         // Redirect user back to previous page
         header("location: ../discussion_board.php");
@@ -26,8 +22,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     }
     // Log
-   // $f_sql = addslashes($sql);
-    //$link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES (" . $_SESSION['entity_id'] . ", " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+    $f_sql = addslashes($sql);
+    $link->query("SET FOREIGN_KEY_CHECKS=0");
+    $link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES (" . $_SESSION['entity_id'] . ", " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+    $link->query("SET FOREIGN_KEY_CHECKS=1");
 }
 else{
     // Redirect user to welcome page

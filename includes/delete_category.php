@@ -23,7 +23,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
     // Log
     $f_sql = addslashes($sql);
+    $link->query("SET FOREIGN_KEY_CHECKS=0");
     $link->query("INSERT INTO marked_entities_log (marked_entity_id, user_id, fname, lname, query, log_time) VALUES (" . $_SESSION['entity_id'] . ", " . $_SESSION['id'] . ", '" . $_SESSION['fname'] . "', '" . $_SESSION['lname'] . "', '$f_sql', SYSDATE())");
+    $link->query("SET FOREIGN_KEY_CHECKS=1");
 }
 else{
     // Redirect user to welcome page

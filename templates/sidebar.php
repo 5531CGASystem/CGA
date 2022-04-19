@@ -24,7 +24,7 @@ if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQU
 <?php 
 }
 // Display sidebar for Admin while in admin pages
-elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){
+elseif((isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false) || ($_SESSION['role_id'] == 1 && isset($_SESSION['admin_pages']))){
 	$_SESSION['admin_pages'] = true;
 	?>
 	<body bgcolor=#33cccc>
