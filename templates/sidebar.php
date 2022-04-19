@@ -20,6 +20,7 @@ if(strpos($_SERVER['REQUEST_URI'],'inbox.php') != false || strpos($_SERVER['REQU
 	<p></p>
 	<li><a href='inbox.php'><b><font color=black>Inbox</b></a></li>
 	<li><a href='sent_box.php'><b><font color=black>Sent</b></a></li>
+	</b>
 <?php 
 }
 // Display sidebar for Admin while in admin pages
@@ -32,6 +33,7 @@ elseif(strpos($_SERVER['HTTP_REFERER'],'role_list.php') != false || ($_SESSION['
 	<b>You are an admin.</b><br><br>
 	<li><a href='manage_users.php'><b><font color=black>Manage Users</b></a></li>
 	<li><a href='manage_courses.php'><b><font color=black>Manage Courses</b></a></li>
+	</b>
 <?php 
 }
 else{ ?>
