@@ -80,13 +80,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	}
 }
 
-echo "<html>
-<head>
-<title>Groups</title>
-</head>
-
-<body style='background-color:#faf0e6'>
-</br>
+echo "
+<div class='content'>
 <h1>Section Name: $row2[0]</h1>
 <h1>Groups:</h1>
 </br>
@@ -95,9 +90,7 @@ echo "<html>
     <button style='background-color:pink'>Create New Group</button>
 </a> 
 </div>
-</br></br>
-</body>
-</html>";
+</br></br>";
 if(mysqli_num_rows($result)==0)
 {
 	echo "No group available under this course";
@@ -137,9 +130,7 @@ echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edi
 }
 
 echo "</table>";
+echo "</div>";
 }
 mysqli_close($link);
 ?>
-
-</body>
-</html>

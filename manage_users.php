@@ -8,7 +8,6 @@ include "includes/head.php";
 $result = mysqli_query($link,"SELECT * FROM users WHERE isactive=1");
 ?>
 
-<div class="content">
 
 <?php
 // Display success/error message when adding notice
@@ -22,10 +21,11 @@ if (isset($_SESSION['error'])){
 }
 ?>
 
+<div class="content">
 </br>
 <h1>Manage Users:</h1>
 </br>
-<div  class='form-group'>
+<div  class="form-group">
    <a href='create_user.php'>
     <button style='background-color:pink'>Create New User</button>
 </a> 
@@ -61,5 +61,3 @@ echo "</table>";
 mysqli_close($link);
 ?>
 </div>
-</body>
-</html>

@@ -15,12 +15,8 @@ $id = (int)$_GET['id'];
 $result = mysqli_query($link,"SELECT user_id,username from users where user_id IN(SELECT ta_id FROM ta_sections WHERE section_id = '$id')");
 $sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
 $row2 = mysqli_fetch_array($sql);
-echo "<html>
-<head>
-<title>Section TAs</title>
-</head>
-
-<body style='background-color:#faf0e6'>
+echo "
+<div class='content'>
 </br>
 <h1>Section Name: $row2[0]</h1>
 <h2>Section TAs:</h2>
@@ -30,9 +26,7 @@ echo "<html>
 <button style='background-color:pink'>Associate TA to Section</button>
 </a> 
 </div>
-</br></br>
-</body>
-</html>";
+</br></br>";
 if(mysqli_num_rows($result)==0)
 {
 echo "No TA available under this section";
@@ -53,6 +47,7 @@ echo "<td><a href='delete_section_ta.php?section_id=".$id."&ta_id=".$row['user_i
 echo "</tr>";
 }
 echo "</table>";
+echo "</div>";
 }
 
 mysqli_close($link);

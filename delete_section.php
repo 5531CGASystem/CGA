@@ -11,7 +11,7 @@ if(!isset($_GET['id'])){
     }
 $id = (int)$_GET['id'];
  
-
+echo '<div class="content">';
    $sql = "DELETE FROM sections WHERE section_id = '$id'";
     if ($link->query($sql) === TRUE) {
 				 
@@ -21,5 +21,5 @@ $id = (int)$_GET['id'];
                 }
     // Close connection
     mysqli_close($link);
-
+    echo '</div>';
 ?>

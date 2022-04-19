@@ -12,7 +12,7 @@ if(!isset($_GET['id'])){
     }
 $id = (int)$_GET['id'];
  
-
+echo '<div class="content">';
    $sql = "DELETE FROM rtc55314.groups WHERE group_id = '$id'";
    $sql11 = "DELETE FROM rtc55314.group_users WHERE group_id = '$id'";
     if ($link->query($sql) === TRUE && $link->query($sql11) === TRUE) {
@@ -23,5 +23,5 @@ $id = (int)$_GET['id'];
                 }
     // Close connection
     mysqli_close($link);
-
+    echo '</div>';
 ?>

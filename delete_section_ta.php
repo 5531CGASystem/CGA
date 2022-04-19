@@ -14,7 +14,7 @@ if(!isset($_GET['section_id']) && !isset($_GET['ta_id'] )){
 
 $section_id= (int)$_GET['section_id'];
 $ta_id=(int)$_GET['ta_id'];
-
+echo '<div class="content">';
 $sql = "DELETE FROM ta_sections WHERE section_id = '$section_id' and ta_id='$ta_id'";
 if ($link->query($sql) === TRUE) {
              
@@ -24,5 +24,5 @@ if ($link->query($sql) === TRUE) {
             }
 // Close connection
 mysqli_close($link);
-
+echo '</div>';
 ?>

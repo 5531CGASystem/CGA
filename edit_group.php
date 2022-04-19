@@ -24,6 +24,7 @@ $section_id = (int)$_GET['section_id'];
 
 $leader_id=0;
 
+
 $options = "";
 $current_options = "";
 	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM rtc55314.users_sections where section_id = $section_id and user_id not in 
@@ -99,28 +100,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Group</title> 
-	 <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body style="background-color:#faf0e6">
      <?php 
         if(!empty($name_error)){
             echo '<div class="alert alert-danger">' . $name_error . '</div>';
         }    
         ?>
-       <div class="wrapper">
+       <div class="content">
         <h1>Edit Group</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=".$id."&section_id=".$section_id; ?>" method="post">
         <div class="form-group">
                 <label>Group Name<font color='red'> *</font></label>
                 <input type="text" name="name"  readonly  class="form-control" value="<?= $data['name']?>">
-               <span style='display: block;'><?php echo $name_error; ?></span>
             </div> 
 			</br>
 			 <div class="form-group">
@@ -134,7 +124,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			     <select multiple="multiple" name="leader_id[]" id="leader_id" class="form-control">
                   <?php echo $options;?>
                   </select>
-				   <span style='display: block;'><?php echo $capacity_error; ?></span>
 		    </div>
 			</br>
 			<div class="form-group">

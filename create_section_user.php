@@ -59,17 +59,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 }
 
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Section User</title> 
-	 <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-    </style>
-</head>
-<body style="background-color:#faf0e6">
-       <div class="wrapper">
+       <div class="content">
         <h1>Associate User</h1>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=".$id; ?>" method="post">
 			<div class="form-group">
@@ -85,8 +75,4 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             </div>
         </form>
      </div>
-    </div>
-</div>
 
-</body>
-</html>
