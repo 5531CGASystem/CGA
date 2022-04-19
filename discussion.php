@@ -138,7 +138,7 @@ if ($data->num_rows > 0) {
         if (!$readonly) {
             if ($user_id == $_SESSION['id']) {
                 echo "<form class='form-button' method=post action='edit_reply.php'>";
-                echo "<input type='hidden' name='text' value='$text'>";
+                echo "<input type='hidden' name='text' value=\"$text\">";
                 echo "<button name='edit' value=$reply_id>Edit</button>";
                 echo "</form>";
             }
