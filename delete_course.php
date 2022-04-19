@@ -14,9 +14,9 @@ $id = (int)$_GET['id'];
  
      $link->query('SET foreign_key_checks = 0');
      $sql = "DELETE FROM courses WHERE course_id = '$id'";
-     $link->query('SET foreign_key_checks = 0');
+     
     if ($link->query($sql) === TRUE) {
-				 
+        $link->query('SET foreign_key_checks = 1');
 				 echo "Course deleted successfully!!";
                   } else {
                      echo "Error deleting record: " . $link->error;
