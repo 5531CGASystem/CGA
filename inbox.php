@@ -22,7 +22,7 @@ if (isset($_SESSION['message'])){
 <form method=post action='includes/mail_select.php'>
 <tr><th>Mail Title</th><th>From</th><th>Date</th></tr>
 <?php
-$data = $link->query("SELECT m.mail_id, m.sender_id, m.subject, m.text, m.send_date, mr.is_read FROM mail m JOIN mail_receivers mr ON m.mail_id=mr.mail_id WHERE mr.receiver_id=" . $_SESSION['id'] . " ORDER BY m.send_date DESC");
+$data = $link->query("SELECT m.mail_id, m.sender_id, m.subject, m.text, m.send_date, mr.is_read FROM mail m JOIN mail_receivers mr ON m.mail_id=mr.mail_id WHERE mr.receiver_id=" . $_SESSION['id'] . " AND mr.is_deleted=0 ORDER BY m.send_date DESC");
 if($data -> num_rows>0){
     while($row = mysqli_fetch_array($data,MYSQLI_NUM)){
         $mail_id = $row[0];

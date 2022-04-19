@@ -59,6 +59,12 @@ if($data -> num_rows>0){
 
 ?>
 
+<style>
+.reply-form{
+    display: inline;
+}
+</style>
+
 <!-- Displays the coursemanager main content -->
 <div class=content>
 
@@ -71,7 +77,7 @@ if($data -> num_rows>0){
 From: <?php echo $sender_un; ?><br>
 To: <?php echo $receivers; ?><br>
 Sent: <?php echo $send_date; ?><br>
-<form method='post' action='reply_mail.php'>
+<form class='reply-form' method='post' action='reply_mail.php'>
     <input type='hidden' name='subject' value='<?php echo $subject; ?>'>
     <input type='hidden' name='sender_un' value='<?php echo $sender_un; ?>'>
     <input type='hidden' name='receivers' value='<?php echo $receivers; ?>'>
@@ -79,6 +85,9 @@ Sent: <?php echo $send_date; ?><br>
     <input type='hidden' name='text' value='<?php echo $text; ?>'>
     <button name='reply' value='<?php echo $sender_un; ?>' type='submit'>Reply</button>
     <button name='reply_all' value='<?php echo $reply_all_users; ?>' type='submit'>Reply All</button>
+</form>
+<form class='reply-form' method='post' action='includes/delete_mail.php'>
+    <button name='delete' value=<?php echo $_SESSION['mail_id']; ?> type='submit' onclick="return confirm('Are you sure you want to delete this mail?')">Delete</button>
 </form>
 <hr>
 <?php echo nl2br($text); ?>
