@@ -20,6 +20,7 @@ class Groupss
 }	
 class Group_member {
 	public $member_name;
+	public $user_id;
 	public $join_group_date;
 	public $left_group_date;
 }
@@ -38,7 +39,7 @@ while($row = mysqli_fetch_array($result))
 	$sql1 = mysqli_query($link,"SELECT username FROM users as u
 JOIN rtc55314.groups as g on g.leader_id=u.user_id where g.leader_id='$leader_id' and g.group_id = '$group_id';");
 
-    $sql22 = mysqli_query($link,"SELECT username, join_group_date, left_group_date FROM rtc55314.group_users as gu JOIN rtc55314.users as us where group_id = '$group_id' and gu.user_id = us.user_id;");
+    $sql22 = mysqli_query($link,"SELECT gu.user_id, username, join_group_date, left_group_date FROM rtc55314.group_users as gu JOIN rtc55314.users as us where group_id = '$group_id' and gu.user_id = us.user_id;");
 $row3 = mysqli_fetch_array($sql1);
    $final_result[$i]->group_id = $row['group_id'];
    $final_result[$i]->name = $row['name'];
@@ -49,6 +50,7 @@ $row3 = mysqli_fetch_array($sql1);
    while ($roww = mysqli_fetch_array($sql22)) {
 	   $group_members[$j]= new Group_member();
 	   $group_members[$j]->member_name = $roww['username'];
+	   $group_members[$j]->user_id = $roww['user_id'];
 	   $group_members[$j]->join_group_date = $roww['join_group_date'];
 	   $group_members[$j]->left_group_date = $roww['left_group_date'];
 	   $j = $j+1;
@@ -59,12 +61,31 @@ $row3 = mysqli_fetch_array($sql1);
 
 $row2 = mysqli_fetch_array($sql);
 
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+	$group_id_Q = $_POST['group_id'];
+	
+	
+	$sqlQ = "UPDATE rtc55314.groups SET leader_id = ? where group_id=$group_id_Q";
+	
+	if($stmtQ = mysqli_prepare($link, $sqlQ)){
+		mysqli_stmt_bind_param($stmtQ, "i", $leader_id_update);
+		$leader_id_update=$_POST['user_id'];
+		if(mysqli_stmt_execute($stmtQ)){
+			header("Refresh:0");
+		} else{
+                echo mysqli_stmt_error($stmtQ);
+         }
+		 
+		 mysqli_stmt_close($stmtQ); 
+	}
+}
+
 echo "<html>
 <head>
 <title>Groups</title>
 </head>
 
-<div class=\"content\">
+<body style='background-color:#faf0e6'>
 </br>
 <h1>Section Name: $row2[0]</h1>
 <h1>Groups:</h1>
@@ -74,7 +95,9 @@ echo "<html>
     <button style='background-color:pink'>Create New Group</button>
 </a> 
 </div>
-</br></br>";
+</br></br>
+</body>
+</html>";
 if(mysqli_num_rows($result)==0)
 {
 	echo "No group available under this course";
@@ -100,11 +123,17 @@ echo "<td>" . $rows->leader_name . "</td>";
 foreach($rows->group_team as $team_member) 
 {
 	
-	echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date."</td>";
+	echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date;
+	echo "<form method='post' action=manage_groups.php?id=".$id.">";
+	echo "<input type='submit' value='Change Leader'>";
+	echo "<input type='hidden' value='".$team_member->user_id."' name='user_id'>";
+	echo "<input type='hidden' value='".$rows->group_id."' name='group_id'>";
+	echo "</form>";
+	echo "</td>";
 	
 }
 echo "</tr>";
-echo "<td><a href='edit_group.php?id=".$rows->group_id."'>Edit</a>/<a href='delete_group.php?id=".$rows->group_id."'>Delete</a></td>";
+echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edit</a>/<a href='delete_group.php?id=".$rows->group_id."'>Delete</a></td>";
 }
 
 echo "</table>";
