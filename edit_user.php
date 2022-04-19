@@ -82,15 +82,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $reset_password = "0";
     }
 
+    $isadmin=0;
+    if(isset($_POST['is_admin'])){
+        $isadmin=$_POST["is_admin"];
+    }
+
     // Check input errors before inserting in database
     if (empty($username_err) && empty($password_err)) {
 
         // Prepare an insert statement
-        $sql = "UPDATE users SET username = ?, password= ?, fname=?, lname=?, email=?, create_at=?, isactive=?,reset_password=? Where user_id=$id ";
+        $sql = "UPDATE users SET username = ?, password= ?, fname=?, lname=?, email=?, create_at=?, isactive=?, isadmin=? ,reset_password=? Where user_id=$id ";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive, $param_reset_password);
+            mysqli_stmt_bind_param($stmt, "sssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive,$param_isadmin, $param_reset_password);
             // Set parameters
             $param_username = $username;
             $param_password = $password;
@@ -99,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_email = $email;
             $param_create_at = $create_at;
             $param_isactive = $isactive;
+            $param_isadmin = $isadmin;
             $param_reset_password = $reset_password;
 
             // Attempt to execute the prepared statement
@@ -167,8 +173,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         </br>
         <div class="form-group">
-            <input type="checkbox" <?php echo $data['reset_password'] == "1" ? "checked" : ""; ?> name="reset_password" value="<?= $data['reset_password'] ?>">
+            <input type="checkbox" <?php echo $data['reset_password'] == "1" ? "checked" : ""; ?> name="reset_password" value=1>
             <label for="reset_password">Reset Password</label>
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="checkbox" <?php echo $data['isadmin'] == "1" ? "checked" : ""; ?> name="is_admin" value=1>
+            <label for="reset_password">Admin</label>
         </div>
         </br>
         <div class="form-group">
