@@ -75,8 +75,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isactive = "1";
     //reset_password
     $reset_password = "1";
+    //is_admin
+    $is_admin=0;
+    if(isset($_POST['is_admin'])){
+        $is_admin=$_POST["is_admin"];
+    }
     //role_id
-    $role_id = $_POST["role_id"];
+    //$role_id = $_POST["role_id"];
 
 
 
@@ -85,11 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($username_err) && empty($password_err)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, fname, lname, email, create_at, isactive, reset_password ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (username, password, fname, lname, email, create_at, isactive, isadmin ,reset_password ) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive, $param_reset_password);
+            mysqli_stmt_bind_param($stmt, "sssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive,$param_isadmin, $param_reset_password);
 
             // Set parameters
 
@@ -101,6 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_email = $email;
             $param_create_at = $create_at;
             $param_isactive = $isactive;
+            $param_isadmin = $is_admin;
             $param_reset_password = $reset_password;
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -170,6 +176,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
         </div>
         </br>
+        <div class="form-group">
+            <label>Admin:<font color='red'> *</font></label>
+            <input type="checkbox" class="form-control" name="is_admin" value="1">
+        </div>
+        <br>
         <div class="form-group">
             <input type="submit" style='background-color:pink' value="Submit">
         </div>
