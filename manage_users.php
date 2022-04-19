@@ -34,7 +34,10 @@ echo "<td>" . $row['username'] . "</td>";
 echo "<td>" . $row['email'] . "</td>";
 echo "<td>" . $row['fname'] . "</td>";
 echo "<td>" . $row['lname'] . "</td>";
-echo "<td><a href='edit_user.php?id=".$row['user_id']."'>Edit</a>/<a href='delete_user.php?id=".$row['user_id']."'>Delete</a>/<a href='manage_roles.php?id=".$row['user_id']."'>Roles</a></td>";
+echo "<td><a href='edit_user.php?id=".$row['user_id']."'>Edit</a>";
+if($_SESSION['id'] != $row['user_id'])
+echo "/<a href='delete_user.php?id=".$row['user_id']."'>Delete</a>";
+echo "/<a href='manage_roles.php?id=".$row['user_id']."'>Roles</a></td>";
 echo "</tr>";
 }
 echo "</table>";
