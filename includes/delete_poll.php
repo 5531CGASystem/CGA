@@ -6,16 +6,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $poll_id = $link->real_escape_string(trim($_POST["delete_poll"]));
 
     // Delete topic in forum_topics sql table
-    $sql =  "SET foreign_key_checks = 0";
-    $sql1 =  "SET foreign_key_checks = 1";
+    $sql = "DELETE FROM poll_responses WHERE question_id=$poll_id";
+    $sql1 = "DELETE FROM poll_options WHERE question_id=$poll_id";
     $sql2 = "DELETE FROM poll_questions WHERE id=$poll_id";
 
     // Check whether delete statement work
     try{
         $link->query($sql);
-        $link->query($sql2);
         $link->query($sql1);
-        
+        $link->query($sql2);
         $_SESSION['message'] = "Poll has been successfully deleted.";
         // Redirect user back to previous page
         header("location: ../discussion_board.php");
