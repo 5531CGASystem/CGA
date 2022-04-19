@@ -3,9 +3,9 @@ session_start();
 include "./config.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $title = trim($_POST["title"]);
-    $category_id = trim($_POST["category"]);
-    $text = trim($_POST["text"]);
+    $title = $link->real_escape_string(trim($_POST["title"]));
+    $category_id = $link->real_escape_string(trim($_POST["category"]));
+    $text = $link->real_escape_string(trim($_POST["text"]));
 
     // Insert data into forum_topics and forum_replies sql table
     $link->autocommit(false);
