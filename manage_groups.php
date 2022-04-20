@@ -37,7 +37,7 @@ while($row = mysqli_fetch_array($result))
 	$sql1 = mysqli_query($link,"SELECT username FROM users as u
 JOIN `groups` as g on g.leader_id=u.user_id where g.leader_id='$leader_id' and g.group_id = '$group_id';");
 
-    $sql22 = mysqli_query($link,"SELECT gu.user_id, username, join_group_date, left_group_date FROM `group_users` as gu JOIN `users` as us where group_id = '$group_id' and gu.user_id = us.user_id;");
+    $sql22 = mysqli_query($link,"SELECT gu.user_id, username, join_group_date, left_group_date FROM `group_users` as gu JOIN `users` as us where left_group_date is null and group_id = '$group_id' and gu.user_id = us.user_id;");
 $row3 = mysqli_fetch_array($sql1);
    $final_result[$i]->group_id = $row['group_id'];
    $final_result[$i]->name = $row['name'];
@@ -121,7 +121,7 @@ else{
 	echo "<td>" . $rows->capacity . "</td>";
 	echo "<td>" . $rows->leader_name . "</td>";
 		foreach($rows->group_team as $team_member){
-			echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date;
+			echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br>";
 			echo "<form method='post' action=manage_groups.php?id=".$id.">";
 			echo "<input type='submit' value='Choose as Group Leader'>";
 			echo "<input type='hidden' value='".$team_member->user_id."' name='user_id'>";
