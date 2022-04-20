@@ -8,7 +8,7 @@ if(!isset($_SERVER['HTTP_REFERER'])){
     exit;
 }
 
-$data = $link->query("SELECT m.title, m.agenda, m.minutes, m.date, m.end_time, g.name, g.group_id FROM meetings m JOIN rtc55314.groups g ON g.group_id=m.group_id WHERE m.meeting_id=" . $_SESSION['meeting_id']);
+$data = $link->query("SELECT m.title, m.agenda, m.minutes, m.date, m.end_time, g.name, g.group_id FROM meetings m JOIN `groups` g ON g.group_id=m.group_id WHERE m.meeting_id=" . $_SESSION['meeting_id']);
 if($data -> num_rows>0){
     $meeting_data = $data->fetch_assoc();
     $title = $meeting_data['title'];

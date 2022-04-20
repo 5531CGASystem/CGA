@@ -145,7 +145,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
                     $file_view_array = explode(",", $file_viewable_to);
                     $file_view = "";
                     foreach ($file_view_array as $value) {
-                        $data3 = $link->query("SELECT name FROM rtc55314.groups WHERE group_id=$value");
+                        $data3 = $link->query("SELECT name FROM `groups` WHERE group_id=$value");
                         if ($data3->num_rows > 0) {
                             $file_group_data = $data3->fetch_assoc();
                             $file_group_name = $file_group_data['name'];

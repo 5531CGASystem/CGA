@@ -109,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(!$value=='all'){
             // Check if an additional view has been selected and create the necessary discussion boards
             if(!str_contains($viewable_to, ",$value,")){
-                $data = $link->query("SELECT name FROM rtc55314.groups WHERE group_id=$value");
+                $data = $link->query("SELECT name FROM `groups` WHERE group_id=$value");
                 if($data->num_rows > 0){
                     $group_data = $data->fetch_assoc();
                     $group_name = $group_data['name'];

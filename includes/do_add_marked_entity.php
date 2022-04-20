@@ -110,7 +110,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if($view_string != ',all,'){
         if($success){
             foreach($_POST["view"] as $value){
-                $data = $link->query("SELECT name FROM rtc55314.groups WHERE group_id=$value");
+                $data = $link->query("SELECT name FROM `groups` WHERE group_id=$value");
                 if($data->num_rows > 0){
                     $group_data = $data->fetch_assoc();
                     $group_name = $group_data['name'];

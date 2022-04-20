@@ -26,8 +26,8 @@ $leader_id=0;
 $name_error = "";
 $capacity_error="";
 $options = "";
-	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM rtc55314.users_sections where section_id = $id and user_id not in 
-(select user_id from group_users where group_id IN (select group_id from rtc55314.groups where section_id = $id)))");
+	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_sections` where section_id = $id and user_id not in 
+(select user_id from group_users where group_id IN (select group_id from `groups` where section_id = $id)))");
 
 while($row = mysqli_fetch_array($sql11))
 {
@@ -45,7 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $name_error = "Group name cannot be empty.";
         } else{
             // Prepare a select statement
-            $sql = "SELECT group_id FROM rtc55314.groups WHERE name = ?";
+            $sql = "SELECT group_id FROM `groups` WHERE name = ?";
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
                 // Link - https://www.php.net/manual/en/mysqli-stmt.bind-param.php
@@ -76,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(empty($name_error) && empty($capacity_error)){
         
             // Prepare an insert statement
-            $sql = "INSERT INTO rtc55314.groups(name, capacity, leader_id, section_id) VALUES (?, ?, ?, ?)";
+            $sql = "INSERT INTO `groups` (name, capacity, leader_id, section_id) VALUES (?, ?, ?, ?)";
              
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
@@ -92,14 +92,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
-					$sql12 = mysqli_query($link,"SELECT group_id FROM rtc55314.groups where section_id='$section_id' and name='$param_name';");
+					$sql12 = mysqli_query($link,"SELECT group_id FROM `groups` where section_id='$section_id' and name='$param_name';");
 				
 				    $group_id = 0;
 					while($row323 = mysqli_fetch_array($sql12)){
 					   $group_id = $row323[0];
 					}
                     // Redirect to login page
-					$sql1111 = "INSERT INTO rtc55314.group_users(user_id, group_id, join_group_date, left_group_date) VALUES (?, ?, ?, ?)";
+					$sql1111 = "INSERT INTO `group_users` (user_id, group_id, join_group_date, left_group_date) VALUES (?, ?, ?, ?)";
 					foreach($_POST["leader_id"] as $us_id) {
 						if($stmt11 = mysqli_prepare($link, $sql1111)){
 							mysqli_stmt_bind_param($stmt11, "iiss", $param_user_id,$param_group_id,$param_join_group_date,$param_left_group_date);

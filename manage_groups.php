@@ -25,7 +25,7 @@ class Group_member {
 	public $left_group_date;
 }
 $id = (int)$_GET['id'];
-$result = mysqli_query($link,"SELECT * FROM rtc55314.groups where section_id='$id'");
+$result = mysqli_query($link,"SELECT * FROM `groups` where section_id='$id'");
 $sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
 
 
@@ -37,9 +37,9 @@ while($row = mysqli_fetch_array($result))
 	$leader_id = $row['leader_id'];
 	$group_id = $row['group_id'];
 	$sql1 = mysqli_query($link,"SELECT username FROM users as u
-JOIN rtc55314.groups as g on g.leader_id=u.user_id where g.leader_id='$leader_id' and g.group_id = '$group_id';");
+JOIN `groups` as g on g.leader_id=u.user_id where g.leader_id='$leader_id' and g.group_id = '$group_id';");
 
-    $sql22 = mysqli_query($link,"SELECT gu.user_id, username, join_group_date, left_group_date FROM rtc55314.group_users as gu JOIN rtc55314.users as us where group_id = '$group_id' and gu.user_id = us.user_id;");
+    $sql22 = mysqli_query($link,"SELECT gu.user_id, username, join_group_date, left_group_date FROM `group_users` as gu JOIN `users` as us where group_id = '$group_id' and gu.user_id = us.user_id;");
 $row3 = mysqli_fetch_array($sql1);
    $final_result[$i]->group_id = $row['group_id'];
    $final_result[$i]->name = $row['name'];
@@ -65,7 +65,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 	$group_id_Q = $_POST['group_id'];
 	
 	
-	$sqlQ = "UPDATE rtc55314.groups SET leader_id = ? where group_id=$group_id_Q";
+	$sqlQ = "UPDATE `groups` SET leader_id = ? where group_id=$group_id_Q";
 	
 	if($stmtQ = mysqli_prepare($link, $sqlQ)){
 		mysqli_stmt_bind_param($stmtQ, "i", $leader_id_update);

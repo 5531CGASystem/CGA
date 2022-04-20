@@ -69,7 +69,7 @@ if (isset($_SESSION['message'])){
 <?php
 // Get meeting info for the user 
 $meeting_info = array();
-$data = $link->query("SELECT m.meeting_id, m.title, m.date, m.end_time FROM meetings m JOIN rtc55314.groups g ON g.group_id=m.group_id JOIN group_users gu ON g.group_id=gu.group_id WHERE gu.user_id=" . $_SESSION['id'] . " AND g.section_id=" . $_SESSION['section_id']);
+$data = $link->query("SELECT m.meeting_id, m.title, m.date, m.end_time FROM meetings m JOIN `groups` g ON g.group_id=m.group_id JOIN group_users gu ON g.group_id=gu.group_id WHERE gu.user_id=" . $_SESSION['id'] . " AND g.section_id=" . $_SESSION['section_id']);
 
 if($data -> num_rows>0){
     while($row = mysqli_fetch_array($data,MYSQLI_NUM)){

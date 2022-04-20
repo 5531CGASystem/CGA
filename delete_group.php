@@ -13,8 +13,8 @@ if(!isset($_GET['id'])){
 $id = (int)$_GET['id'];
  
 echo '<div class="content">';
-   $sql = "DELETE FROM rtc55314.groups WHERE group_id = '$id'";
-   $sql11 = "DELETE FROM rtc55314.group_users WHERE group_id = '$id'";
+   $sql = "DELETE FROM `groups` WHERE group_id = '$id'";
+   $sql11 = "DELETE FROM `group_users` WHERE group_id = '$id'";
     if ($link->query($sql) === TRUE && $link->query($sql11) === TRUE) {
 				 
 				 echo "Group deleted successfully!!";
