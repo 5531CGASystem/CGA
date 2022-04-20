@@ -88,7 +88,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
         $view_array = explode(",", $viewable_to);
         $view = "";
         foreach ($view_array as $value) {
-            $data = $link->query("SELECT name FROM rtc55314.groups WHERE group_id=$value");
+            $data = $link->query("SELECT name FROM `groups` WHERE group_id=$value");
             if ($data->num_rows > 0) {
                 $group_data = $data->fetch_assoc();
                 $group_name = $group_data['name'];

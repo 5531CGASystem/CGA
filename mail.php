@@ -86,9 +86,11 @@ Sent: <?php echo $send_date; ?><br>
     <button name='reply' value='<?php echo $sender_un; ?>' type='submit'>Reply</button>
     <button name='reply_all' value='<?php echo $reply_all_users; ?>' type='submit'>Reply All</button>
 </form>
+<?php if(strpos($_SERVER['HTTP_REFERER'],'inbox.php') != false){?>
 <form class='reply-form' method='post' action='includes/delete_mail.php'>
     <button name='delete' value=<?php echo $_SESSION['mail_id']; ?> type='submit' onclick="return confirm('Are you sure you want to delete this mail?')">Delete</button>
 </form>
+<?php } ?>
 <hr>
 <?php echo nl2br($text); ?>
 </p>

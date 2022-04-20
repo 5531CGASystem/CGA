@@ -37,6 +37,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     // Start autocommit
+    $link->query("SET FOREIGN_KEY_CHECKS=0");
     $link->autocommit(false);
 
     // Upload file module
@@ -87,7 +88,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
-    $link->query("SET FOREIGN_KEY_CHECKS=0");
     // Update marked entities sql table
     if ($file_id == 0){
         $sql = "UPDATE marked_entities SET name='$name', due_date=date('$due_date'), type='$type', work_type='$work_type', viewable_to='$view_string', description='$desc' 
