@@ -30,20 +30,24 @@ $query = "SELECT user_id,username FROM users";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-        
+            $rolesql = "SELECT * from roles where role_name = 'student'";
+            $roledata = $link -> query($rolesql);
+            $rolerow = mysqli_fetch_assoc($roledata);
+            $role_id = $rolerow['role_id'];
             // Prepare an insert statement
-            $sql = "INSERT INTO users_sections(user_id, section_id) VALUES (?, ?)";
+            $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?, ?, ?)";
              if($sql == false) {
-	           die("ERROR: Could not connect. " . mysqli_error());
+	           die("ERROR: Could not connect. " . mysqli_error($link));
                   }
 			 
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "ii",$param_user_id,$param_section_id);
+                mysqli_stmt_bind_param($stmt, "iii",$param_user_id,$param_section_id,$param_role_id);
                 
                 // Set parameters
                 $param_user_id = $_POST["user_id"];
 				$param_section_id = $section_id;
+                $param_role_id = $role_id;
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){

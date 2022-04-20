@@ -16,10 +16,7 @@ $course_id = $id;
 $section_name = "";
 $section_error = "";
 $prof_id = 0;
-$query = "SELECT r.user_id,u.username FROM user_roles as r 
-join users as u
-on r.user_id=u.user_id 
-and r.role_id=2;";
+$query = "SELECT u.user_id,u.username FROM users u";
 $result2 = mysqli_query($link, $query);
 $options = "";
 while ($row2 = mysqli_fetch_array($result2)) {
