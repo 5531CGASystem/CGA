@@ -84,9 +84,9 @@ Refresh the page to make sure you are viewing the latest updates.<br>
 <p></p>
 <table><tbody>
 <tr><th bgcolor='pink'>Agenda:</th>
-<td id="agenda" <?php if(!$readonly){ ?>contenteditable="true" onblur="saveText1()" <?php } ?>><?php echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$agenda); ?></td></tr>
+<td id="agenda" <?php if(!$readonly){ ?>contenteditable="true" onblur="saveText1()" <?php } ?>><?php echo nl2br($agenda); ?></td></tr>
 <tr><th bgcolor='pink'>Minutes:</th>
-<td id="minutes" <?php if(!$readonly){ ?>contenteditable="true" onblur="saveText2()" <?php } ?>><?php echo preg_replace('/\v+|\\\r\\\n/Ui','<br/>',$minutes); ?></td></tr>
+<td id="minutes" <?php if(!$readonly){ ?>contenteditable="true" onblur="saveText2()" <?php } ?>><?php echo nl2br($minutes); ?></td></tr>
 </tbody></table>
 <button onclick="return alert('Saved')">Save</button>
 </div>
