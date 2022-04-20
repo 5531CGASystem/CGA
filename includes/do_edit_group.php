@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     $sqlDeleteQuery="UPDATE `group_users` SET left_group_date = '" . date("Y-m-d h:m:s") . "' WHERE group_id='$id'";
 					if ($link->query($sqlDeleteQuery) === TRUE)
 					{
-					 $sql1111 = "INSERT INTO `group_users` (user_id, group_id, join_group_date, left_group_date) VALUES (?, ?, ?, ?) ";
+					 $sql1111 = "INSERT INTO `group_users` (user_id, group_id, join_group_date, left_group_date) VALUES (?, ?, ?, ?) ON DUPLICATE KEY UPDATE left_group_date=null";
 					 foreach($_POST["leader_id"] as $us_id) {
 						if($stmt11 = mysqli_prepare($link, $sql1111)){
 							mysqli_stmt_bind_param($stmt11, "iiss", $param_user_id,$param_group_id,$param_join_group_date,$param_left_group_date);
