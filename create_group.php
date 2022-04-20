@@ -26,7 +26,7 @@ $leader_id=0;
 $name_error = "";
 $capacity_error="";
 $options = "";
-	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_sections` where section_id = $id and user_id not in 
+	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $id and role_id = 4 and user_id not in 
 (select user_id from group_users where group_id IN (select group_id from `groups` where section_id = $id)))");
 
 while($row = mysqli_fetch_array($sql11))
@@ -134,7 +134,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         ?>
        <div class="content">
         <h1>Create a Group</h1>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=".$id; ?>" method="post">
+        <form action="<?php echo htmlspecialchars('includes/do_create_group.php')."?id=".$id; ?>" method="post">
         <div class="form-group">
                 <label>Group Name<font color='red'> *</font></label>
                 <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
