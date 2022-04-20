@@ -79,6 +79,7 @@ else{ ?>
 	// Display sidebar for Student
 	elseif($_SESSION['role_id'] == 4){
 		echo "You are a student.<br><br>";
+		echo "<li><a href='student_group.php'><b><font color=black>View Group Information</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
 		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
 		echo "<br>";

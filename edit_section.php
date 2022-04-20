@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_bind_param($stmt, "i", $param_prof_id);
 
             // Set parameters
-            $param_section_name = trim($_POST["section_name"]);
+            //$param_section_name = trim($_POST["section_name"]);
             $param_prof_id = $_POST["prof_id"];
 
             // Attempt to execute the prepared statement
