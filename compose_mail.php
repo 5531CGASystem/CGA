@@ -1,6 +1,11 @@
 <?php
 include "includes/head.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['to'])) {
+  $prof_un = $_GET["to"];
+}
 ?>
+
 
 <!-- Displays the coursemanager main content -->
 <div class=content>
@@ -14,11 +19,11 @@ include "includes/head.php";
 <form method=post action="includes/do_send_mail.php">
 
 <p><strong>To:</strong><font color='red'> *</font><br>
-<input type="text" name="to" size=40 maxlength=150 required>
+<input type="text" name="to" size=40 maxlength=150 value='<?php if(isset($prof_un)){ echo $prof_un;} ?>' required>
 </b>(separate usernames by comma for multiple receivers)<br></p>
 
 <p><strong>Subject:</strong><font color='red'> *</font><br>
-<input type="text" name="subject" size=40 maxlength=150 required></p>
+<input type="text" name="subject" size=40 maxlength=150 value='<?php if(isset($prof_un)){ echo "Request group leader change";} ?>' required></p>
 
 <p><strong>Content:</strong><br>
 <textarea name="content" rows=8 cols=40 wrap=virtual></textarea>
