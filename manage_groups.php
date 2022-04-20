@@ -130,7 +130,7 @@ else{
 			echo "</td>";
 		}
 	echo "</tr>";
-	echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edit</a>/<a href='delete_group.php?id=".$rows->group_id."'>Delete</a></td>";
+	echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edit</a>/<a href='delete_group.php?section_id=$id&group_id=".$rows->group_id."'>Delete</a></td>";
 	}
 	echo "</table>";
 	echo "</div>";
