@@ -27,7 +27,7 @@ $name_error = "";
 $capacity_error="";
 $options = "";
 	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $id and role_id = 4 and user_id not in 
-(select DISTINCT user_id from group_users where left_group_date=null and group_id IN (select group_id from `groups` where section_id = $id)))");
+(select DISTINCT user_id from group_users where left_group_date is null and group_id IN (select group_id from `groups` where section_id = $id)))");
 
 while($row = mysqli_fetch_array($sql11))
 {
