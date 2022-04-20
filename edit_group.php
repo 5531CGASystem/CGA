@@ -39,7 +39,7 @@ while($row = mysqli_fetch_array($sql11))
 
 while($row = mysqli_fetch_array($sql112))
 {
-	$options = $options."<option value='$row[0]'>$row[1]</option>";
+	//$options = $options."<option value='$row[0]'>$row[1]</option>";
 	$current_options = $current_options."<option value='$row[0]'>$row[1]</option>";
 }
 // Processing form data when form is submitted
