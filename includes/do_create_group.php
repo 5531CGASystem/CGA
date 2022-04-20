@@ -1,11 +1,6 @@
 <?php 
 session_start();
 include "./config.php";
-if ($link == false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-
-
 
 //processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,7 +13,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //$options = fetchUsers();
     // Check if course_name is empty
     if (empty(trim($_POST["name"]))) {
-        $name_error = "Group name cannot be empty.";
+        // Redirect to previous page
+        $_SESSION['error'] = "Group name cannot be empty.";
+        header("location:../create_group.php?id=$section_id");
+        exit;
     } else {
         // Prepare a select statement
         $sql = "SELECT group_id FROM `groups` WHERE name = ? and section_id = ?";
@@ -36,12 +34,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 mysqli_stmt_store_result($stmt);
 
                 if (mysqli_stmt_num_rows($stmt) == 1) {
-                    $name_error = "This group already exists.";
+                    // Redirect to previous page
+                    $_SESSION['error'] = "This group already exists.";
+                    header("location:../create_group.php?id=$section_id");
+                    exit;
                 } else {
                     $name = trim($_POST["name"]);
                 }
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                // Redirect to previous page
+                $_SESSION['error'] = "Oops! Something went wrong. Please try again later.";
+                header("location:../create_group.php?id=$section_id");
+                exit;
             }
 
             // Close statement

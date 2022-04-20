@@ -2,22 +2,17 @@
 //40197292
 include "includes/head.php";
 
-// Check connection
-if ($link == false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 $id=0;
 $section_id=0;
 
- if(isset($_POST['submit']))
-        {  
-	$id =$_POST["id"];
-	$section_id=$id;
-		}
-		else{
-			$id = (int)$_GET['id'];
-			$section_id=$id;
-		}	
+if(isset($_POST['submit'])){  
+    $id =$_POST["id"];
+    $section_id=$id;
+}
+else{
+    $id = (int)$_GET['id'];
+    $section_id=$id;
+}	
 		
 
 $name ="";
@@ -26,11 +21,10 @@ $leader_id=0;
 $name_error = "";
 $capacity_error="";
 $options = "";
-	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $id and role_id = 4 and user_id not in 
+$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $id and role_id = 4 and user_id not in 
 (select DISTINCT user_id from group_users where left_group_date is null and group_id IN (select group_id from `groups` where section_id = $id)))");
 
-while($row = mysqli_fetch_array($sql11))
-{
+while($row = mysqli_fetch_array($sql11)){
 	$options = $options."<option value='$row[0]'>$row[1]</option>";
 }
 // Processing form data when form is submitted
