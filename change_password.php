@@ -25,7 +25,6 @@ if (isset($_SESSION['error'])){
 
 <form method='post' action='includes/do_change_password.php'>
 <table border=0 align=center>
-<tr><td><b>Enter Your Username<font color=red>*</font>:</b></td><td><input type='text' maxlength=20 size=35 name='username' required></td></tr>
 <tr><td><b>Enter Your Current Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='current_password' required></td></tr>
 <tr><td><b>Enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='new_password' required></td></tr>
 <tr><td><b>Re-enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='new_password2' required></td></tr>

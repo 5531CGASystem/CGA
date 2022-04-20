@@ -3,7 +3,6 @@ session_start();
 include "./config.php";
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-    $username = $link->real_escape_string(trim($_POST["username"]));
     $current_password = $link->real_escape_string(trim($_POST["current_password"]));
     $new_password = $link->real_escape_string(trim($_POST["new_password"]));
     $new_password2 = $link->real_escape_string(trim($_POST["new_password2"]));
@@ -15,11 +14,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     }
 
-    // Check if username and password exist and are correct
-    $data = $link->query("SELECT * FROM users WHERE username='$username' AND password='$current_password'");
+    // Check if user and password exist and are correct
+    $data = $link->query("SELECT * FROM users WHERE password='$current_password' AND user_id=" . $_SESSION['id']);
     if ($data->num_rows > 0) {
         try{
-            $link->query("UPDATE users SET password='$new_password', reset_password=0 WHERE username='$username'");
+            $link->query("UPDATE users SET password='$new_password', reset_password=0 WHERE user_id=" . $_SESSION['id']);
             $_SESSION['message'] = "Password has been successfully changed.";
             // Redirect user back to previous page
             header("location: logout.php");
@@ -33,7 +32,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     else{
-        $_SESSION['error'] = "Username and/or password incorrect.";
+        $_SESSION['error'] = "Password incorrect.";
         // Redirect user back to previous page
         header("location: ../change_password.php");
         exit;

@@ -24,13 +24,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $db_isadmin = $user_data['isadmin'];
         
         if($db_password==$password){
-            // Check if user needs to reset password
-            if($db_reset_password == 1){
-                // Redirect user to change password page
-                header("location: ../change_password.php");
-                exit;
-            }
-            
             // Store data in session variables
             $_SESSION["loggedin"] = true;
             $_SESSION["id"] = $db_user_id;
@@ -38,6 +31,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $_SESSION["fname"] = $db_fname;
             $_SESSION["lname"] = $db_lname;
             $_SESSION["isadmin"] = $db_isadmin;
+
+            // Check if user needs to reset password
+            if($db_reset_password == 1){
+                // Redirect user to change password page
+                header("location: ../change_password.php");
+                exit;
+            }
                         
             // Redirect user to role list page
             header("location: ../role_list.php");
