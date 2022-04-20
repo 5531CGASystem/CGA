@@ -54,7 +54,6 @@ else{ ?>
 		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
-		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
 		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
@@ -67,7 +66,6 @@ else{ ?>
 		echo "<br>";
 		echo "<li><a href='post_notices.php'><b><font color=black>Post Notices</b></a></li>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
-		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
 		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
@@ -75,7 +73,6 @@ else{ ?>
 	elseif($_SESSION['role_id'] == 3){
 		echo "You are a TA.<br><br>";
 		echo "<li><a href='marked_entities.php'><b><font color=black>Marked Entities</b></a></li>";
-		echo "<li><a href='meetings.php'><b><font color=black>Meetings</b></a></li>";
 		echo "<br>";
 		echo "<li><a href=change_password.php><b><font color=black>Change Password</b></a></li>";
 	}
