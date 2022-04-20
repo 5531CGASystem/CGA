@@ -1,23 +1,29 @@
 <?php
 //40197292
-/* Database credentials. */
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 if(!isset($_GET['id'])){
     // redirect to show page
     die('id not provided');
 }
 $id = (int)$_GET['id'];
+
 $result = mysqli_query($link,"SELECT user_id,username from users where user_id IN(SELECT user_id FROM users_roles_sections WHERE section_id = '$id' and role_id = 3)");
 $sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
 $row2 = mysqli_fetch_array($sql);
-echo "
-<div class='content'>
-</br>
+echo "<div class='content'>";
+
+// Display success/error message
+if (isset($_SESSION['message'])){
+  echo "<font color='blue'>".$_SESSION['message']."</font>";
+  unset($_SESSION['message']);
+}
+if (isset($_SESSION['error'])){
+    echo "<font color='red'>".$_SESSION['error']."</font>";
+    unset($_SESSION['error']);
+}
+
+echo "</br>
 <h1>Section Name: $row2[0]</h1>
 <h2>Current TAs:</h2>
 <div  class='form-group'>

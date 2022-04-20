@@ -3,10 +3,6 @@
 /* Database credentials. */
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 $id=0;
 $section_id=0;
  if(isset($_POST['submit']))
@@ -18,15 +14,14 @@ $section_id=0;
 			$id = (int)$_GET['id'];
 			$section_id=$id;
 		}
-$sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
-$row2 = mysqli_fetch_array($sql);
+//$sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
+//$row2 = mysqli_fetch_array($sql);
 $query = "SELECT u.user_id,u.username FROM users u";
-    $result2 = mysqli_query($link, $query);
-    $options = "";
-          while($row2 = mysqli_fetch_array($result2))
-         {
-          $options = $options."<option value='$row2[0]'>$row2[1]</option>";
-         }
+$result = mysqli_query($link, $query);
+$options = "";
+while($row = mysqli_fetch_array($result)){
+    $options = $options."<option value='$row[0]'>$row[1]</option>";
+}
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -48,8 +43,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
-                    // Redirect to login page
-					header("location:manage_courses.php");
+                    // Redirect to previous page
+					header("location:manage_section_tas.php?id=$id");
                    
                 } else{
                     die('Error with execute: ' . htmlspecialchars($stmt->error));
