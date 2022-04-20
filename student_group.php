@@ -45,9 +45,9 @@ if ($data->num_rows > 0) {
                 $group_name = $row2[2];
                 $capacity = $row2[3];
                 $join_group_date = $row2[7];
-                echo "Group Name: $group_name<br>";
-                echo "Leader: $group_leader<br>";
-                echo "Capacity Limit: $capacity<p></p>";
+                echo "Group Name: <font color='blue'>$group_name</font><br>";
+                echo "Leader: <font color='blue'>$group_leader</font><br>";
+                echo "Capacity Limit: <font color='blue'>$capacity</font><p></p>";
                 echo "<table><tbody><tr><th>Members</th><th>Joined Group On</th></tr>";
                 echo "<tr><td>$username</td><td>$join_group_date</td></tr>";
                 array_push($groups_checked, $group_id);
