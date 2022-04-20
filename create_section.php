@@ -77,10 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
+                $_SESSION['message'] = "Section created successfully!!";
                 // Redirect to login page
                 header("location:manage_sections.php?id=$id");
             } else {
-                die('Error with execute: ' . htmlspecialchars($stmt->error));
+                $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+                // Redirect to login page
+                header("location:manage_sections.php?id=$id");
             }
             // Close statement
             mysqli_stmt_close($stmt);

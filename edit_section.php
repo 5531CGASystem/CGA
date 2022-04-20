@@ -88,11 +88,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
+                $_SESSION['message'] = "Section edited successfully!!";
                 // Redirect to login page
                 header("location:manage_sections.php?id=$course_id");
                 exit;
             } else {
-                die('Error with execute: ' . htmlspecialchars($stmt->error));
+                $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+                // Redirect to login page
+                header("location:manage_sections.php?id=$course_id");
+                exit;
             }
             // Close statement
             mysqli_stmt_close($stmt);
