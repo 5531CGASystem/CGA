@@ -15,7 +15,7 @@ if(!isset($_GET['section_id']) && !isset($_GET['user_id'] )){
 $section_id= (int)$_GET['section_id'];
 $user_id=(int)$_GET['user_id'];
 echo '<div class="content">';
-$sql = "DELETE FROM users_sections WHERE section_id = '$section_id' and user_id='$user_id'";
+$sql = "DELETE FROM users_roles_sections WHERE section_id = '$section_id' and user_id='$user_id'";
 if ($link->query($sql) === TRUE) {
              
              echo "Section User deleted successfully!!";

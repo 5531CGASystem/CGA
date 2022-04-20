@@ -12,7 +12,7 @@ if(!isset($_GET['id'])){
     die('id not provided');
 }
 $id = (int)$_GET['id'];
-$result = mysqli_query($link,"SELECT user_id,username from users where user_id IN(SELECT ta_id FROM ta_sections WHERE section_id = '$id')");
+$result = mysqli_query($link,"SELECT user_id,username from users where user_id IN(SELECT user_id FROM users_roles_sections WHERE section_id = '$id' and role_id = 3)");
 $sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
 $row2 = mysqli_fetch_array($sql);
 echo "

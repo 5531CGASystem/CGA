@@ -20,10 +20,7 @@ $section_id=0;
 		}
 $sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
 $row2 = mysqli_fetch_array($sql);
-$query = "SELECT r.user_id,u.username FROM user_roles as r 
-join users as u
-on r.user_id=u.user_id 
-and r.role_id=3";
+$query = "SELECT u.user_id,u.username FROM users u";
     $result2 = mysqli_query($link, $query);
     $options = "";
           while($row2 = mysqli_fetch_array($result2))
@@ -35,18 +32,19 @@ and r.role_id=3";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
         
             // Prepare an insert statement
-            $sql = "INSERT INTO ta_sections(ta_id, section_id) VALUES (?, ?)";
+            $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?, ?,?)";
              if($sql == false) {
-	           die("ERROR: Could not connect. " . mysqli_error());
+	           die("ERROR: Could not connect. " . mysqli_error($link));
                   }
 			 
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "ii",$param_ta_id,$param_section_id);
+                mysqli_stmt_bind_param($stmt, "iii",$param_ta_id,$param_section_id,$param_role_id);
                 
                 // Set parameters
                 $param_ta_id = $_POST["user_id"];
 				$param_section_id = $section_id;
+                $param_role_id = 3;
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
