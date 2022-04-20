@@ -1,27 +1,29 @@
 <?php
+//Author:
 //40197292
+//Edited by:
+//40215517
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 if(!isset($_GET['id'])){
-        // redirect to show page
-        die('id not provided');
-    }
+    // redirect to show page
+    die('id not provided');
+}
 $id = (int)$_GET['id'];
- 
-echo '<div class="content">';
-   $sql = "DELETE FROM `groups` WHERE group_id = '$id'";
-   $sql11 = "DELETE FROM `group_users` WHERE group_id = '$id'";
-    if ($link->query($sql) === TRUE && $link->query($sql11) === TRUE) {
-				 
-				 echo "Group deleted successfully!!";
-                  } else {
-                     echo "Error deleting record: " . $link->error;
-                }
-    // Close connection
-    mysqli_close($link);
-    echo '</div>';
+
+$sql = "DELETE FROM `groups` WHERE group_id = '$id'";
+if ($link->query($sql) === TRUE) {
+    $_SESSION['message'] = "Group deleted successfully!!";
+    // Redirect user back to previous page
+    header("location: manage_groups.php");
+    exit;
+} else {
+    $_SESSION['error'] = "Error deleting record: " . $link->error;
+    // Redirect user back to previous page
+    header("location: manage_groups.php");
+    exit;
+}
+
+// Close connection
+mysqli_close($link);
 ?>

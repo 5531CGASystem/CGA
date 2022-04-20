@@ -78,59 +78,65 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		 
 		 mysqli_stmt_close($stmtQ); 
 	}
-}
+}?>
 
-echo "
 <div class='content'>
-<h1>Section Name: $row2[0]</h1>
+
+<?php
+// Display success/error message
+if (isset($_SESSION['message'])){
+  echo "<font color='blue'>".$_SESSION['message']."</font>";
+  unset($_SESSION['message']);
+}
+if (isset($_SESSION['error'])){
+    echo "<font color='red'>".$_SESSION['error']."</font>";
+    unset($_SESSION['error']);
+}
+?>
+
+<h1>Section Name: <?php echo $row2[0]; ?></h1>
 <h1>Groups:</h1>
 </br>
 <div  class='form-group'>
-   <a href='create_group.php?id=$id'>
+	<a href='create_group.php?id=<?php echo $id; ?>'>
     <button style='background-color:pink'>Create New Group</button>
-</a> 
+	</a>
 </div>
-</br></br>";
-if(mysqli_num_rows($result)==0)
-{
+</br></br>
+
+<?php
+if(mysqli_num_rows($result)==0){
 	echo "No group available under this course";
 }
-else
-{
+else{
+	echo "<table border='3' >
+	<tr>
+	<th>Group_Name</th>
+	<th>Capacity</th>
+	<th>Leader_Name</th>
+	<th colspan='4'>Group_Members</th>
+	</tr>";
 
-echo "<table border='3' >
-<tr>
-<th>Group_Name</th>
-<th>Capacity</th>
-<th>Leader_Name</th>
-<th colspan='4'>Group_Members</th>
-</tr>";
-
-foreach($final_result as $rows)
-{
-echo "<tr style='padding:20px;'>";
-echo "<td>" . $rows->name . "</td>";
-echo "<td>" . $rows->capacity . "</td>";
-echo "<td>" . $rows->leader_name . "</td>";
-
-foreach($rows->group_team as $team_member) 
-{
-	
-	echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date;
-	echo "<form method='post' action=manage_groups.php?id=".$id.">";
-	echo "<input type='submit' value='Choose as Group Leader'>";
-	echo "<input type='hidden' value='".$team_member->user_id."' name='user_id'>";
-	echo "<input type='hidden' value='".$rows->group_id."' name='group_id'>";
-	echo "</form>";
-	echo "</td>";
-	
-}
-echo "</tr>";
-echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edit</a>/<a href='delete_group.php?id=".$rows->group_id."'>Delete</a></td>";
+	foreach($final_result as $rows){
+	echo "<tr style='padding:20px;'>";
+	echo "<td>" . $rows->name . "</td>";
+	echo "<td>" . $rows->capacity . "</td>";
+	echo "<td>" . $rows->leader_name . "</td>";
+		foreach($rows->group_team as $team_member){
+			echo "<td><strong>Member Name: </strong>".$team_member->member_name."</br><strong>Group Join date: </strong>".$team_member->join_group_date."</br><strong>Group Left date: </strong>".$team_member->left_group_date;
+			echo "<form method='post' action=manage_groups.php?id=".$id.">";
+			echo "<input type='submit' value='Choose as Group Leader'>";
+			echo "<input type='hidden' value='".$team_member->user_id."' name='user_id'>";
+			echo "<input type='hidden' value='".$rows->group_id."' name='group_id'>";
+			echo "</form>";
+			echo "</td>";
+		}
+	echo "</tr>";
+	echo "<td><a href='edit_group.php?id=".$rows->group_id."&section_id=".$id."'>Edit</a>/<a href='delete_group.php?id=".$rows->group_id."'>Delete</a></td>";
+	}
+	echo "</table>";
+	echo "</div>";
 }
 
-echo "</table>";
-echo "</div>";
-}
 mysqli_close($link);
 ?>

@@ -1,27 +1,29 @@
 <?php
+//Author:
 //40197292
+//Edited by:
+//40215517
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 if(!isset($_GET['id'])){
-        // redirect to show page
-        die('id not provided');
-    }
+    // redirect to show page
+    die('id not provided');
+}
 $id = (int)$_GET['id'];
  
-     $link->query('SET foreign_key_checks = 0');
-     $sql = "DELETE FROM courses WHERE course_id = '$id'";
-     $link->query('SET foreign_key_checks = 0');
-    if ($link->query($sql) === TRUE) {
-				 
-				 echo "Course deleted successfully!!";
-                  } else {
-                     echo "Error deleting record: " . $link->error;
-                }
-    // Close connection
-    mysqli_close($link);
+$sql = "DELETE FROM courses WHERE course_id = '$id'";
+if ($link->query($sql) === TRUE) {
+    $_SESSION['message'] = "Course deleted successfully!!";
+    // Redirect user back to previous page
+    header("location: manage_courses.php");
+    exit;
+} else {
+    $_SESSION['error'] = "Error deleting record: " . $link->error;
+    // Redirect user back to previous page
+    header("location: manage_courses.php");
+    exit;
+}
 
+// Close connection
+mysqli_close($link);
 ?>
