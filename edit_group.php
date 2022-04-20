@@ -27,7 +27,7 @@ $leader_id=0;
 
 $options = "";
 $current_options = "";
-	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_sections` where section_id = $section_id and user_id not in 
+	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $section_id and role_id=4 and user_id not in 
 (select user_id from group_users where group_id IN (select group_id from `groups` where section_id = $section_id)))");
 
 $sql112=mysqli_query($link,"SELECT user_id, username from users where user_id IN (SELECT user_id from group_users where group_id=$id)");
@@ -39,7 +39,7 @@ while($row = mysqli_fetch_array($sql11))
 
 while($row = mysqli_fetch_array($sql112))
 {
-	//$options = $options."<option value='$row[0]'>$row[1]</option>";
+	$options = $options."<option value='$row[0]'>$row[1]</option>";
 	$current_options = $current_options."<option value='$row[0]'>$row[1]</option>";
 }
 // Processing form data when form is submitted
@@ -110,12 +110,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"])."?id=".$id."&section_id=".$section_id; ?>" method="post">
         <div class="form-group">
                 <label>Group Name<font color='red'> *</font></label>
-                <input type="text" name="name"  readonly  class="form-control" value="<?= $data['name']?>">
+                <input type="text" name="name" readonly class="form-control" value="<?= $data['name']?>">
             </div> 
 			</br>
 			 <div class="form-group">
                 <label>Capacity<font color='red'> *</font></label>
-                 <input type="text" name="capacity" class="form-control" readonly value="<?= $data['capacity']?>">
+                 <input type="text" name="capacity" class="form-control" value="<?= $data['capacity']?>">
             </div>   
             </br>
 			 <div class="form-group">
