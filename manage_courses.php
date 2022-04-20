@@ -1,12 +1,8 @@
 <?php
+//Author:
 //40197292
-/* Database credentials. */
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 $result = mysqli_query($link,"SELECT * FROM courses");
 
 
