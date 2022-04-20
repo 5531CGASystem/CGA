@@ -70,10 +70,13 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 			echo "<input name=section_id type=hidden value='" . $section_id . "'>";
 			echo "<input name=section_name type=hidden value='" . $section_name . "'></form></td></tr>";
 		}
+		echo "</table>";
 	}
-
+	else{
+		echo "No courses available";
+	}
 	?>
-	</table>
+
 	</div>
 	<br>
 	<hr>

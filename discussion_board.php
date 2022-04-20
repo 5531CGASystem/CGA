@@ -111,6 +111,9 @@ if ($due_date < $current_date) {
                         echo "</form>";
                     }
                 }
+                else{
+                    echo "No polls posted.";
+                }
 
                 if ($data2->num_rows > 0) {
 
@@ -140,6 +143,9 @@ if ($due_date < $current_date) {
                         echo "</form>";
                     }
                     echo "<br>";
+                }
+                else{
+                    echo "No topics posted.";
                 }
             }
         }
