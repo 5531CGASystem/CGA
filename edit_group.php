@@ -30,7 +30,7 @@ $current_options = "";
 	$sql11=mysqli_query($link,"SELECT user_id, username from users where user_id IN(SELECT user_id FROM `users_roles_sections` where section_id = $section_id and role_id=4 and user_id not in 
 (select DISTINCT user_id from group_users where left_group_date is null and group_id IN (select group_id from `groups` where section_id = $section_id)))");
 
-$sql112=mysqli_query($link,"SELECT user_id, username from users where user_id IN (SELECT user_id from group_users where group_id=$id)");
+$sql112=mysqli_query($link,"SELECT user_id, username from users where user_id IN (SELECT user_id from group_users where group_id=$id and left_group_date is null)");
 
 while($row = mysqli_fetch_array($sql11))
 {
