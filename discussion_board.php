@@ -105,7 +105,7 @@ if ($due_date < $current_date) {
                     }
                     echo "</tbody></table>";
                     // Delete category for admin or instructor
-                    if ($_SESSION['role_id'] < 3 && str_contains($cat_name, 'Public')) {
+                    if ($_SESSION['role_id'] < 3 && !str_contains($cat_name, 'Public')) {
                         echo "<form method=post action='includes/delete_category.php'>";
                         echo "<button type='submit' name='delete_cat' value=$cat_id onclick=\"return confirm('Are you sure you want to delete this category? It will delete the discussions AND polls under this category.')\">Delete Category</button>";
                         echo "</form>";
@@ -134,7 +134,7 @@ if ($due_date < $current_date) {
                     }
                     echo "</tbody></table>";
                     // Delete category for admin or instructor
-                    if ($_SESSION['role_id'] < 3 && str_contains($cat_name, 'Public')) {
+                    if ($_SESSION['role_id'] < 3 && !str_contains($cat_name, 'Public')) {
                         echo "<form method=post action='includes/delete_category.php'>";
                         echo "<button type='submit' name='delete_cat' value=$cat_id onclick=\"return confirm('Are you sure you want to delete this category? It will delete the discussions AND polls under this category.')\">Delete Category</button>";
                         echo "</form>";
