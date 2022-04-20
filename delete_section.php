@@ -1,25 +1,31 @@
 <?php
+//Author:
+//40197292
+//Edited by:
+//40215517
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
+if(!isset($_GET['course_id'])){
+    // redirect to show page
+    die('course_id not provided');
 }
-if(!isset($_GET['id'])){
-        // redirect to show page
-        die('id not provided');
-    }
-$id = (int)$_GET['id'];
- 
-echo '<div class="content">';
-   $sql = "DELETE FROM sections WHERE section_id = '$id'";
-    if ($link->query($sql) === TRUE) {
-				 
-				 echo "Section deleted successfully!!";
-                  } else {
-                     echo "Error deleting record: " . $link->error;
-                }
-    // Close connection
-    mysqli_close($link);
-    echo '</div>';
+if(!isset($_GET['section_id'])){
+    // redirect to show page
+    die('section_id not provided');
+}
+$course_id = (int)$_GET['course_id'];
+$section_id = (int)$_GET['section_id'];
+
+$sql = "DELETE FROM sections WHERE section_id=$section_id";
+if ($link->query($sql) === TRUE) {
+    $_SESSION['message'] = "Section deleted successfully!!";
+    // Redirect user back to previous page
+    header("location: manage_sections.php?id=$course_id");
+    exit;
+} else {
+    $_SESSION['error'] = "Error deleting record: " . $link->error;
+    // Redirect user back to previous page
+    header("location: manage_sections.php?id=$course_id");
+    exit;
+}
 ?>
