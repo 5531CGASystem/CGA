@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
 					
-                    $sqlDeleteQuery="DELETE FROM `group_users` WHERE group_id='$id'";
+                    $sqlDeleteQuery="UPDATE `group_users` SET left_group_date = '" . date("Y-m-d h:m:s") . "' WHERE group_id='$id'";
 					if ($link->query($sqlDeleteQuery) === TRUE)
 					{
 					 $sql1111 = "INSERT INTO `group_users` (user_id, group_id, join_group_date, left_group_date) VALUES (?, ?, ?, ?) ";
