@@ -3,8 +3,8 @@
 //40197292
 //40215517
 //40196855
-
-include "includes/head.php";
+session_start();
+include "./includes/config.php";
 
 if(!isset($_GET['id'])){
         // redirect to show page

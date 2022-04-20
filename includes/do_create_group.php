@@ -90,9 +90,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         mysqli_stmt_close($stmt11);
                     }
                 }
+                $_SESSION['message'] = "Group created successfully!!";
+                // Redirect user back to previous page
                 header("location:../manage_groups.php?id=" . $id);
+                exit;
             } else {
-                echo "Oops! Something went wrong. Please try again later.";
+                $_SESSION['error'] = "Error deleting record: " . $link->error;
+                // Redirect user back to previous page
+                header("location: ../create_group.php?id=$id");
+                exit;
             }
             // Close statement
             mysqli_stmt_close($stmt);

@@ -3,7 +3,8 @@
 //40197292
 //Edited by:
 //40215517
-include "includes/head.php";
+session_start();
+include "./includes/config.php";
 
 if(!isset($_GET['section_id'])){
     // redirect to show page

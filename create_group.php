@@ -133,6 +133,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }    
         ?>
        <div class="content">
+
+        <?php
+        // Display success/error message
+        if (isset($_SESSION['message'])){
+            echo "<font color='blue'>".$_SESSION['message']."</font>";
+            unset($_SESSION['message']);
+        }
+        if (isset($_SESSION['error'])){
+            echo "<font color='red'>".$_SESSION['error']."</font>";
+            unset($_SESSION['error']);
+        }
+        ?>
+        
         <h1>Create a Group</h1>
         <form action="<?php echo htmlspecialchars('includes/do_create_group.php')."?id=".$id; ?>" method="post">
         <div class="form-group">
