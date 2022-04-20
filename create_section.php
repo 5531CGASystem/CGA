@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location:manage_courses.php");
+                header("location:manage_sections.php?id=$id");
             } else {
                 die('Error with execute: ' . htmlspecialchars($stmt->error));
             }

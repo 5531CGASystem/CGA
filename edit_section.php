@@ -5,12 +5,17 @@ include "includes/head.php";
 if ($link == false) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
-if (!isset($_GET['id'])) {
+if (!isset($_GET['course_id'])) {
     // redirect to show page
-    die('id not provided');
+    die('course_id not provided');
 }
-$id = (int)$_GET['id'];
-$sql = "SELECT * FROM sections where section_id = '$id'";
+if (!isset($_GET['section_id'])) {
+    // redirect to show page
+    die('section_id not provided');
+}
+$course_id = (int)$_GET['course_id'];
+$section_id = (int)$_GET['section_id'];
+$sql = "SELECT * FROM sections where section_id = '$section_id'";
 
 $result = $link->query($sql);
 
@@ -68,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }*/
     if (empty($section_error)) {
         // Prepare an insert statement
-        $sql = "UPDATE sections SET prof_id=? WHERE section_id=$id";
+        $sql = "UPDATE sections SET prof_id=? WHERE section_id=$section_id";
         if ($sql == false) {
             die("ERROR: Could not connect. " . mysqli_error($link));
         }
@@ -84,7 +89,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location:manage_courses.php");
+                header("location:manage_sections.php?id=$course_id");
+                exit;
             } else {
                 die('Error with execute: ' . htmlspecialchars($stmt->error));
             }
@@ -118,7 +124,7 @@ if (!empty($section_error)) {
 </style>
 <div class="content">
     <h1>Edit Section</h1>
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $id); ?>" method="post">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?course_id='.$course_id.'&section_id=' . $section_id); ?>" method="post">
         <div class="form-group">
             <h2>Section Name: <?php echo $data['section_name']; ?></h2>
         </div>

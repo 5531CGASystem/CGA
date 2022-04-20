@@ -51,7 +51,7 @@ if (isset($_SESSION['error'])){
         while ($row = mysqli_fetch_array($result)) {
             echo "<tr>";
             echo "<td>" . $row['section_name'] . "</td>";
-            echo "<td><a href='edit_section.php?id=" . $row['section_id'] . "'>Edit</a>/<a href='delete_section.php?course_id=$id&section_id=" . $row['section_id'] . "'>Delete</a>/<a href='manage_groups.php?id=" . $row['section_id'] . "'>Groups</a>/<a href='manage_section_users.php?id=" . $row['section_id'] . "'>Manage Students</a>/<a href='manage_section_tas.php?id=" . $row['section_id'] . "'>Manage TAs</a></td>";
+            echo "<td><a href='edit_section.php?course_id=$id&section_id=" . $row['section_id'] . "'>Edit</a>/<a href='delete_section.php?course_id=$id&section_id=" . $row['section_id'] . "'>Delete</a>/<a href='manage_groups.php?id=" . $row['section_id'] . "'>Groups</a>/<a href='manage_section_users.php?id=" . $row['section_id'] . "'>Manage Students</a>/<a href='manage_section_tas.php?id=" . $row['section_id'] . "'>Manage TAs</a></td>";
             echo "</tr>";
         }
         echo "</table>";
