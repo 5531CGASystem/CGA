@@ -6,10 +6,6 @@
 
 include "includes/head.php";
 
-// Check connection
-if($link == false) {
-	die("ERROR: Could not connect. " . mysqli_connect_error());
-}
 if(!isset($_GET['id'])){
         // redirect to show page
         die('id not provided');
