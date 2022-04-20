@@ -109,10 +109,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
+                $_SESSION['message'] = "User successfully edited!!";
                 // Redirect to users page
-                header("location: manage_users.php");
+                header("location:manage_users.php");
+                exit;
             } else {
-                echo mysqli_stmt_error($stmt);
+                $_SESSION['error'] = "Could not edit user. Error: " . mysqli_stmt_error($stmt);
+                // Redirect to users page
+                header("location:manage_users.php");
+                exit;
             }
 
             // Close statement

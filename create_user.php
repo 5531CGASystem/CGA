@@ -110,10 +110,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_reset_password = $reset_password;
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
+                $_SESSION['message'] = "User successfully created!!";
                 // Redirect to users page
                 header("location:manage_users.php");
+                exit;
             } else {
-                echo mysqli_stmt_error($stmt);
+                $_SESSION['error'] = "Could not create user. Error: " . mysqli_stmt_error($stmt);
+                // Redirect to users page
+                header("location:manage_users.php");
+                exit;
             }
 
             // Close statement
