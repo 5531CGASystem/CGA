@@ -1,4 +1,7 @@
 <?php
+// Page for changing password
+// Author: 40215517
+
 session_start();
 include "./includes/config.php";
 ?>
@@ -25,9 +28,9 @@ if (isset($_SESSION['error'])){
 
 <form method='post' action='includes/do_change_password.php'>
 <table border=0 align=center>
-<tr><td><b>Enter Your Current Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='current_password' required></td></tr>
-<tr><td><b>Enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='new_password' required></td></tr>
-<tr><td><b>Re-enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=30 size=35 name='new_password2' required></td></tr>
+<tr><td><b>Enter Your Current Password<font color=red>*</font>:</b></td><td><input type='password' maxlength=20 size=35 name='current_password' required></td></tr>
+<tr><td><b>Enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" maxlength=20 size=35 name='new_password' required></td></tr>
+<tr><td><b>Re-enter Your New Password<font color=red>*</font>:</b></td><td><input type='password' pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" maxlength=20 size=35 name='new_password2' required></td></tr>
 <tr><td colspan=2 align =center><button type='submit' name='submit'>Submit</button>&nbsp;&nbsp;<input type='reset' value='Clear'></td></tr>
 </table>
 </form>

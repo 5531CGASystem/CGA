@@ -1,31 +1,41 @@
 <?php
+// Page to edit section
+// Author: 40197292
+// Edited: 40215517
+
 include "includes/head.php";
 
-// Check connection
-if ($link == false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
 }
+
 if (!isset($_GET['course_id'])) {
-    // redirect to show page
-    die('course_id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location:manage_courses.php");
+    exit;
 }
 if (!isset($_GET['section_id'])) {
-    // redirect to show page
-    die('section_id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location:manage_courses.php");
+    exit;
 }
+
 $course_id = (int)$_GET['course_id'];
 $section_id = (int)$_GET['section_id'];
 $sql = "SELECT * FROM sections where section_id = '$section_id'";
 
 $result = $link->query($sql);
-
 if ($result->num_rows != 1) {
-    // redirect to show page
-    die('id is not in db');
+    $_SESSION['error'] = "Invalid link.";
+    header("location:manage_courses.php");
+    exit;
 }
 $data = $result->fetch_assoc();
+
 // Define variables and initialize with empty values
-$section_error = "";
 $query = "SELECT u.user_id,u.username FROM users u";
 $result2 = mysqli_query($link, $query);
 $options = "";
@@ -36,79 +46,38 @@ while ($row2 = mysqli_fetch_array($result2)) {
     }
     $options = $options . "<option $selected value='$row2[0]'>$row2[1]</option>";
 }
+
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Check if section_name is empty
-    /* if (empty(trim($_POST["section_name"]))) {
-        //$section_error = "Section name cannot be empty.";
-    } else {
-        // Prepare a select statement
-        $sql = "SELECT section_id FROM sections WHERE section_name = ?";
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            // Link - https://www.php.net/manual/en/mysqli-stmt.bind-param.php
-            mysqli_stmt_bind_param($stmt, "s", $param_section_name);
+    // Prepare an insert statement
+    $sql = "UPDATE sections SET prof_id=? WHERE section_id=$section_id";
 
-            // Set parameters
-            $param_section_name = trim($_POST["section_name"]);
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "i", $param_prof_id);
 
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // store result 
-                mysqli_stmt_store_result($stmt);
+        // Set parameters
+        $param_prof_id = $_POST["prof_id"];
 
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    $section_error = "This section already exists.";
-                } else {
-                    $section_name = trim($_POST["section_name"]);
-                }
-            } else {
-                echo "Oops! Something went wrong. Please try again later.";
-            }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
-        } 
-    }*/
-    if (empty($section_error)) {
-        // Prepare an insert statement
-        $sql = "UPDATE sections SET prof_id=? WHERE section_id=$section_id";
-        if ($sql == false) {
-            die("ERROR: Could not connect. " . mysqli_error($link));
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+            $_SESSION['message'] = "Section edited successfully!!";
+            // Redirect to login page
+            header("location:manage_sections.php?id=$course_id");
+            exit;
+        } else {
+            $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+            // Redirect to login page
+            header("location:manage_sections.php?id=$course_id");
+            exit;
         }
-
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "i", $param_prof_id);
-
-            // Set parameters
-            //$param_section_name = trim($_POST["section_name"]);
-            $param_prof_id = $_POST["prof_id"];
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                $_SESSION['message'] = "Section edited successfully!!";
-                // Redirect to login page
-                header("location:manage_sections.php?id=$course_id");
-                exit;
-            } else {
-                $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
-                // Redirect to login page
-                header("location:manage_sections.php?id=$course_id");
-                exit;
-            }
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
+        // Close statement
+        mysqli_stmt_close($stmt);
     }
 }
-
-
-if (!empty($section_error)) {
-    echo '<div class="alert alert-danger">' . $section_error . '</div>';
-}
 ?>
+
 <style>
     form {
         display: table;
@@ -126,6 +95,7 @@ if (!empty($section_error)) {
         display: table-cell;
     }
 </style>
+
 <div class="content">
     <h1>Edit Section</h1>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?course_id='.$course_id.'&section_id=' . $section_id); ?>" method="post">
@@ -147,5 +117,4 @@ if (!empty($section_error)) {
 </div>
 
 </body>
-
 </html>

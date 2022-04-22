@@ -1,4 +1,7 @@
 <?php
+// Password reset page
+// Author: 40215517
+
 session_start();
 include "./config.php";
 
@@ -7,8 +10,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $new_password = $link->real_escape_string(trim($_POST["new_password"]));
     $new_password2 = $link->real_escape_string(trim($_POST["new_password2"]));
 
+    // Check if re-entered password is same or not
     if(strcmp($new_password, $new_password2) != 0){
         $_SESSION['error'] = "The new passwords do not match.";
+        // Redirect user back to previous page
+        header("location: ../change_password.php");
+        exit;
+    }
+
+    // Check if the new password is different from the old one
+    if(strcmp($current_password, $new_password) == 0){
+        $_SESSION['error'] = "The new password must be different.";
         // Redirect user back to previous page
         header("location: ../change_password.php");
         exit;
@@ -32,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
     else{
-        $_SESSION['error'] = "Password incorrect.";
+        $_SESSION['error'] = "Password is incorrect.";
         // Redirect user back to previous page
         header("location: ../change_password.php");
         exit;
@@ -43,3 +55,4 @@ else{
     header("location: logout.php");
     exit;
 }
+?>

@@ -1,89 +1,28 @@
 <?php
-//40197292
+// Page to edit a course
+// Author: 40197292
+// Edited: 40215517 & 40196855
+
 include "includes/head.php";
 
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
+}
+
 $id = (int)$_GET['id'];
-$course_error = "";
 $sql1 = "SELECT * FROM courses where course_id = '$id'";
 $result = $link->query($sql1);
 if ($result->num_rows != 1) {
-    // redirect to show page
-    die('id is not in db');
+    $_SESSION['error'] = "This course does not exist.";
+    header("location:manage_courses.php");
+    exit;
 }
 $data = $result->fetch_assoc();
-// // Processing form data when form is submitted
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-//     // Check if course_name is empty
-//     if (empty(trim($_POST["course_name"]))) {
-//         $course_error = "Course name cannot be empty.";
-//     } else {
-//         // Prepare a select statement
-//         $sql = "SELECT course_id FROM courses WHERE course_name = ? and course_id!=$id";
-//         if ($stmt = mysqli_prepare($link, $sql)) {
-//             // Bind variables to the prepared statement as parameters
-//             // Link - https://www.php.net/manual/en/mysqli-stmt.bind-param.php
-//             mysqli_stmt_bind_param($stmt, "s", $param_course_name);
-
-//             // Set parameters
-//             $param_course_name = trim($_POST["course_name"]);
-
-//             // Attempt to execute the prepared statement
-//             if (mysqli_stmt_execute($stmt)) {
-//                 /* store result */
-//                 mysqli_stmt_store_result($stmt);
-
-//                 if (mysqli_stmt_num_rows($stmt) == 1) {
-//                     $course_error = "This course already exists.";
-//                 } else {
-//                     $course_name = trim($_POST["course_name"]);
-//                 }
-//             } else {
-//                 echo "Oops! Something went wrong. Please try again later.";
-//             }
-
-//             // Close statement
-//             mysqli_stmt_close($stmt);
-//         }
-//         //$course = trim($_POST["course_name"]);
-//     }
-//     if (empty($course_error)) {
-
-//         // Prepare an insert statement
-//         $sql = "UPDATE courses SET course_name=?,code=?, term=?, year=?, course_desc=?, start_date=?, end_date=? WHERE course_id=$id";
-
-//         if ($stmt = mysqli_prepare($link, $sql)) {
-//             // Bind variables to the prepared statement as parameters
-//             mysqli_stmt_bind_param($stmt, "sssssss", $param_course_name, $param_code, $param_term, $param_year, $param_course_desc, $param_start_date, $param_end_date);
-
-//             // Set parameters
-//             $param_course_name = trim($_POST["course_name"]);
-//             $param_code = trim($_POST["code"]);
-//             $param_term = trim($_POST["term"]);
-//             $param_year = trim($_POST["year"]);
-//             $param_course_desc = trim($_POST["course_desc"]);
-//             $param_start_date = $_POST["start_date"];
-//             $param_end_date = $_POST["end_date"];
-
-
-//             // Attempt to execute the prepared statement
-//             if (mysqli_stmt_execute($stmt)) {
-//                 // Redirect to login page
-//                 header("location:manage_courses.php");
-//             } else {
-//                 echo "Oops! Something went wrong. Please try again later.";
-//             }
-//             // Close statement
-//             mysqli_stmt_close($stmt);
-//         }
-//     }
-// }
-
-
-// if (!empty($course_error)) {
-//     echo '<div class="alert alert-danger">' . $course_error . '</div>';
-// }
 ?>
+
 <style>
     form {
         display: table;
@@ -101,6 +40,7 @@ $data = $result->fetch_assoc();
         display: table-cell;
     }
 </style>
+
 <div class="content">
 
     <?php
@@ -119,37 +59,36 @@ $data = $result->fetch_assoc();
     <form action="<?php echo htmlspecialchars('includes/do_edit_course.php?id=' . $id); ?>" method="post">
         <div class="form-group">
             <label>Course Name<font color='red'> *</font></label>
-            <input type="text" name="course_name" class="form-control" value="<?= $data['course_name'] ?>">
-            <span style='display: block;'><?php echo $course_error; ?></span>
+            <input type="text" name="course_name" class="form-control" value="<?= $data['course_name'] ?>" maxlength=60 required>
         </div>
         </br>
         <div class="form-group">
             <label>Code<font color='red'> *</font></label>
-            <input type="text" name="code" class="form-control" value="<?= $data['code'] ?>">
+            <input type="text" name="code" class="form-control" value="<?= $data['code'] ?>" maxlength=15 required>
         </div>
         </br>
         <div class="form-group">
             <label>Term<font color='red'> *</font></label>
-            <input type="text" name="term" class="form-control" value="<?= $data['term'] ?>">
+            <input type="text" name="term" class="form-control" value="<?= $data['term'] ?>" maxlength=20 required>
         </div>
         </br>
         <div class="form-group">
             <label>Year<font color='red'> *</font></label>
-            <input type="text" name="year" class="form-control" value="<?= $data['year'] ?>">
+            <input type="text" name="year" class="form-control" pattern="^[0-9]*$" title="Please type a number." maxlength=10 value="<?= $data['year'] ?>" required>
         </div>
         </br>
         <div class="form-group">
             <label>Start Date<font color='red'> *</font></label>
-            <input type="date" name="start_date" class="form-control" value="<?= $data['start_date'] ?>">
+            <input type="date" name="start_date" class="form-control" value="<?= $data['start_date'] ?>" required>
         </div>
         </br>
         <div class="form-group">
             <label>End Date<font color='red'> *</font></label>
-            <input type="date" name="end_date" class="form-control" value="<?= $data['end_date'] ?>">
+            <input type="date" name="end_date" class="form-control" value="<?= $data['end_date'] ?>" required>
         </div>
         </br>
         <div class="form-group">
-            <label>Course Description<font color='red'> *</font></label>
+            <label>Course Description</label>
             <textarea style="min-height: 100px; min-width: 271px;" type="text" name="course_desc" class="form-control"><?php echo htmlspecialchars($data['course_desc']); ?></textarea>
         </div>
         </br>

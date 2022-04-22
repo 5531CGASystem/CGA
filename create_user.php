@@ -1,18 +1,15 @@
 <?php
-//40197292
-include "includes/head.php";
-/* Attempt to connect to MySQL database */
-$link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+// Page to add a new user to the system
+// Author: 40197292
+// Edited: 40215517
 
-// Check connection
-if ($link == false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
-$query = "SELECT * FROM `roles`";
-$result2 = mysqli_query($link, $query);
-$options = "";
-while ($row2 = mysqli_fetch_array($result2)) {
-    $options = $options . "<option value='$row2[0]'>$row2[1]</option>";
+include "includes/head.php";
+
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
 }
 
 // Define variables and initialize with empty values
@@ -22,82 +19,58 @@ $username_err = $password_err  = "";
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Validate username
-    if (empty(trim($_POST["username"]))) {
-        $username_err = "Please enter a username.";
-    } elseif (!preg_match('/^[a-zA-Z0-9_]+$/', trim($_POST["username"]))) {
-        $username_err = "Username can only contain letters, numbers, and underscores.";
-    } else {
-        // Prepare a select statement
-        $sql = "SELECT user_id FROM users WHERE username = ?";
+    // Prepare a select statement
+    $sql = "SELECT user_id FROM users WHERE username = ?";
 
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "s", $param_username);
 
-            // Set parameters
-            $param_username = trim($_POST["username"]);
+        // Set parameters
+        $param_username = trim($_POST["username"]);
 
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                /* store result */
-                mysqli_stmt_store_result($stmt);
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+            /* store result */
+            mysqli_stmt_store_result($stmt);
 
-                if (mysqli_stmt_num_rows($stmt) == 1) {
-                    $username_err = "This username is already taken.";
-                } else {
-                    $username = trim($_POST["username"]);
-                }
+            if (mysqli_stmt_num_rows($stmt) == 1) {
+                $username_err = "This username is already taken.";
             } else {
-                echo "Oops! Something went wrong";
+                $username = trim($_POST["username"]);
             }
-
-            // Close statement
-            mysqli_stmt_close($stmt);
+        } else {
+            echo "Oops! Something went wrong";
         }
+
+        // Close statement
+        mysqli_stmt_close($stmt);
     }
 
-    // Validate password
-    if (empty(trim($_POST["password"]))) {
-        $password_err = "Please enter a password.";
-    } elseif (strlen(trim($_POST["password"])) < 6) {
-        $password_err = "Password must have characters greater than or equal to 6.";
-    } else {
-        $password = trim($_POST["password"]);
-    }
-    // fname
+    // Set user info variables
+    $password = trim($_POST["password"]);
     $fname = trim($_POST["fname"]);
-    // lname
     $lname = trim($_POST["lname"]);
-    //email
     $email = trim($_POST["email"]);
-    //isactive
     $isactive = "1";
-    //reset_password
     $reset_password = "1";
-    //is_admin
     $is_admin=0;
+
     if(isset($_POST['is_admin'])){
         $is_admin=$_POST["is_admin"];
     }
-    //role_id
-    //$role_id = $_POST["role_id"];
-
-
-
 
     // Check input errors before inserting in database
     if (empty($username_err) && empty($password_err)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password, fname, lname, email, create_at, isactive, isadmin ,reset_password ) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO users (username, password, fname, lname, email, create_at, isactive, isadmin , reset_password) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "sssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive,$param_isadmin, $param_reset_password);
 
             // Set parameters
-
             $create_at = date("Y/m/d");
             $param_username = $username;
             $param_password = $password;
@@ -108,6 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_isactive = $isactive;
             $param_isadmin = $is_admin;
             $param_reset_password = $reset_password;
+
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 $_SESSION['message'] = "User successfully created!!";
@@ -125,7 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
         }
     }
-
 
     // Close connection
     mysqli_close($link);
@@ -156,33 +129,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group">
             <label>Username:<font color='red'> *</font></label>
-            <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+            <input type="text" name="username" pattern="^[a-zA-Z0-9_]{6,}$" title="Must be alphanumeric, can contain underscore, and at least 6 or more characters" maxlength=50 value="<?php echo $username; ?>" required>
             <span style='display: block;'><?php echo $username_err; ?></span>
         </div>
         </br>
         <div class="form-group">
             <label>Password:<font color='red'> *</font></label>
-            <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
+            <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" maxlength=20 value="<?php echo $password; ?>" required>
             <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
         </br>
         <div class="form-group">
             <label>First Name:<font color='red'> *</font></label>
-            <input type="text" name="fname" class="form-control" value="<?php echo $fname; ?>">
+            <input type="text" name="fname" class="form-control" value="<?php echo $fname; ?>" required>
         </div>
         </br>
         <div class="form-group">
             <label>Last Name:<font color='red'> *</font></label>
-            <input type="text" name="lname" class="form-control" value="<?php echo $lname; ?>">
+            <input type="text" name="lname" class="form-control" value="<?php echo $lname; ?>" required>
         </div>
         </br>
         <div class="form-group">
             <label>Email:<font color='red'> *</font></label>
-            <input type="email" name="email" class="form-control" value="<?php echo $email; ?>">
+            <input type="email" name="email" class="form-control" value="<?php echo $email; ?>" required>
         </div>
         </br>
         <div class="form-group">
-            <label>Admin:<font color='red'> *</font></label>
+            <label>Admin?:</label>
             <input type="checkbox" class="form-control" name="is_admin" value="1">
         </div>
         <br>

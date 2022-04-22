@@ -1,11 +1,21 @@
 <?php
-//Author:
-//40197292
+// Portal to display sections
+// Author: 40197292
+// Edited: 40215517
+
 include "includes/head.php";
 
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
+}
+
 if (!isset($_GET['id'])) {
-    // redirect to show page
-    die('id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location:manage_courses.php");
+    exit;
 }
 
 $id = (int)$_GET['id'];
@@ -16,17 +26,17 @@ $row2 = mysqli_fetch_array($sql);
 
 <div class="content">
 
-<?php
-// Display success/error message
-if (isset($_SESSION['message'])){
-  echo "<font color='blue'>".$_SESSION['message']."</font>";
-  unset($_SESSION['message']);
-}
-if (isset($_SESSION['error'])){
-    echo "<font color='red'>".$_SESSION['error']."</font>";
-    unset($_SESSION['error']);
-}
-?>
+    <?php
+    // Display success/error message
+    if (isset($_SESSION['message'])){
+    echo "<font color='blue'>".$_SESSION['message']."</font>";
+    unset($_SESSION['message']);
+    }
+    if (isset($_SESSION['error'])){
+        echo "<font color='red'>".$_SESSION['error']."</font>";
+        unset($_SESSION['error']);
+    }
+    ?>
 
     </br>
     <h1>Course Name: <?php echo $row2[0] ?></h1>

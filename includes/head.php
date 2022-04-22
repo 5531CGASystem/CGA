@@ -7,6 +7,11 @@ if(!isset($_SESSION["loggedin"]) && !$_SESSION["loggedin"] === true){
     header("location: login_page.php");
     exit;
 }
+// Check if has selected a role and course
+if(!isset($_SESSION["role_id"]) || (!isset($_SESSION["section_id"]) && $_SESSION['role_id'] != 1)){
+  header("location: login_page.php");
+  exit;
+}
 ?>
 
 <style>
