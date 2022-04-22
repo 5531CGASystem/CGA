@@ -1,6 +1,6 @@
 <?php
-//Author:
-//40197292
+// Author: 40197292
+
 include "includes/head.php";
 
 // Check if person does not have access

@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Section Name<font color='red'> *</font></label>
-                <input type="text" name="section_name" class="form-control" value="<?php echo $section_name; ?>" required>
+                <input type="text" name="section_name" class="form-control" value="<?php echo $section_name; ?>" maxlength=45 required>
             </div>
             </br>
             <div class="form-group">

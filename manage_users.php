@@ -33,8 +33,8 @@ if (isset($_SESSION['error'])){
 <h1>Manage Users:</h1>
 </br>
 <div  class="form-group">
-   <a href='create_user.php'>
-    <button style='background-color:pink'>Create New User</button>
+  <a href='create_user.php'>
+  <button style='background-color:pink'>Create New User</button>
 </a> 
 </div>
 </br></br>
