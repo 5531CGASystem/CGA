@@ -91,9 +91,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $success = true;
     $marked_entity_id=0;
     $link->query("SET FOREIGN_KEY_CHECKS=0");
-    // Insert data into marked entities table and create default categories based on views
-    $sql1 = "INSERT INTO marked_entities (section_id, name, post_date, due_date, type, work_type, viewable_to, file_id, description) 
-        VALUES (" . $_SESSION['section_id'] . ", '$name', NOW(), date('$due_date'), '$type', '$work_type' , '$view_string', $file_id, '$desc')";
+    if($file_id == 0){
+        // Insert data into marked entities table and create default categories based on views
+        $sql1 = "INSERT INTO marked_entities (section_id, name, post_date, due_date, type, work_type, viewable_to, description) 
+            VALUES (" . $_SESSION['section_id'] . ", '$name', NOW(), date('$due_date'), '$type', '$work_type' , '$view_string', '$desc')";
+    }
+    else{
+        // Insert data into marked entities table and create default categories based on views
+        $sql1 = "INSERT INTO marked_entities (section_id, name, post_date, due_date, type, work_type, viewable_to, file_id, description) 
+            VALUES (" . $_SESSION['section_id'] . ", '$name', NOW(), date('$due_date'), '$type', '$work_type' , '$view_string', $file_id, '$desc')";
+    }
 
     try{
         $link->query($sql1);
