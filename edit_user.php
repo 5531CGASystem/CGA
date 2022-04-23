@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($stmt);
     }
 
+    $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
     $fname = trim($_POST["fname"]);
     $lname = trim($_POST["lname"]);
@@ -143,6 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . '?id=' . $id); ?>" method="post">
         <div class="form-group">
             <label>Username: <?php echo $data['username']; ?></label>
+            <input type="hidden" name="username" class="form-control" value="<?= $data['username'] ?>">
         </div>
         </br>
         <div class="form-group">
