@@ -12,7 +12,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = $link->real_escape_string(trim($_POST["password"]));
 	
 	// Validate credentials
-    $data = $link->query("SELECT * FROM users WHERE username = '$username'");
+    $data = $link->query("SELECT * FROM users WHERE username = '$username' AND isactive=1");
     if($data -> num_rows>0){
         $user_data = $data->fetch_assoc();
         $db_user_id = $user_data['user_id'];

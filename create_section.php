@@ -70,26 +70,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($stmt);
     }
 
+    $link->autocommit(false);
+
     // Prepare an insert statement
-    $sql = "INSERT INTO sections(section_name, prof_id, course_id) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO sections(section_name, course_id) VALUES (?, ?)";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "sii", $param_section_name, $param_prof_id, $param_course_id);
+        mysqli_stmt_bind_param($stmt, "si", $param_section_name, $param_course_id);
 
         // Set parameters
         $param_section_name = trim($_POST["section_name"]);
-        $param_prof_id = $_POST["prof_id"];
         $param_course_id = $_POST["course_id"];
 
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['message'] = "Section created successfully!!";
-            // Redirect to login page
-            header("location:manage_sections.php?id=$id");
+            $section_id = $link->insert_id;
+            $prof_id = $_POST["prof_id"];
+
+            $sql2 = "INSERT INTO users_roles_sections (user_id, role_id, section_id) VALUES ($prof_id, 2, $section_id)";
+            // Check whether the insert statement worked
+            try{
+                $link->query($sql2);
+                $link->commit();
+                $link->autocommit(true);
+                $_SESSION['message'] = "Section created successfully!!";
+                // Redirect user back to previous page
+                header("location:manage_sections.php?id=$id");
+            }
+            catch(Exception $e){
+                $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+                $link->rollback();
+                $link->autocommit(true);
+                // Redirect user back to previous page
+                header("location:manage_sections.php?id=$id");
+            }
         } else {
             $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
-            // Redirect to login page
             header("location:manage_sections.php?id=$id");
         }
         // Close statement

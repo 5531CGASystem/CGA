@@ -116,7 +116,9 @@ if ($data->num_rows > 0) {
             echo "</td>";
         }
         echo "<td>";
+        $text = str_replace("\"", "'", $text);
         $f_text = $link->real_escape_string($text);
+
         // Display reply button for everyone
         if (!$readonly) {
             echo "<input type='button' value='Reply' onclick=\"insertQuote('$f_text')\">";
