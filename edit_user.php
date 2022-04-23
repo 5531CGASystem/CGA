@@ -150,8 +150,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         </br>
         <div class="form-group">
-            <label>Password<font color='red'> *</font></label>
-            <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" maxlength=20 value="<?= $data['password'] ?>" required>
+            <label>New Password<font color='red'> *</font></label>
+            <input type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" maxlength=20 required>
             <span class="invalid-feedback"><?php echo $password_err; ?></span>
         </div>
         </br>
