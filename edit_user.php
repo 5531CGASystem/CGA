@@ -157,12 +157,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </br>
         <div class="form-group">
             <label>First Name<font color='red'> *</font></label>
-            <input type="text" name="fname" class="form-control" value="<?= $data['fname'] ?>" required>
+            <input type="text" name="fname" pattern="^[A-Za-z]+$" title="Alphabet characters in name only" value="<?= $data['fname'] ?>" required>
         </div>
         </br>
         <div class="form-group">
             <label>Last Name<font color='red'> *</font></label>
-            <input type="text" name="lname" class="form-control" value="<?= $data['lname'] ?>" required>
+            <input type="text" name="lname" pattern="^[A-Za-z]+$" title="Alphabet characters in name only" value="<?= $data['lname'] ?>" required>
         </div>
         </br>
         <div class="form-group">
