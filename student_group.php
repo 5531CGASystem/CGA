@@ -56,7 +56,7 @@ if ($data->num_rows > 0) {
         echo "</tbody></table><br>";
 
         // Request leader change
-        $data5 = $link->query("SELECT u.username FROM users u JOIN sections s ON u.user_id=s.prof_id WHERE prof_id=(SELECT prof_id FROM sections WHERE section_id=" . $_SESSION['section_id'] . ")");
+        $data5 = $link->query("SELECT u.username FROM users u JOIN users_roles_sections urs ON u.user_id=urs.user_id WHERE urs.role_id=2 AND urs.section_id=" . $_SESSION['section_id']);
         if ($data5->num_rows > 0) {
             $prof_data = $data5->fetch_assoc();
             $prof_un = $prof_data['username'];

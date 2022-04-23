@@ -44,7 +44,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	else{
 		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id 
 		JOIN users_roles_sections urs ON s.section_id = urs.section_id 
-		WHERE urs.role_id = " . $_SESSION['role_id'] . " AND urs.user_id = " . $_SESSION['id'] . 
+		WHERE NOW() > DATE(c.start_date) AND NOW() < DATE(c.end_date) AND  urs.role_id = " . $_SESSION['role_id'] . " AND urs.user_id = " . $_SESSION['id'] . 
 		" ORDER BY 2,3,4,5,11";
 	}
 
