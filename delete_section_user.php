@@ -1,14 +1,22 @@
 <?php
-//Author:
-//40197292
-//Edited by:
-//40215517
+// Helper to delete a user from the section
+// Author: 40197292
+// Edited by: 40215517
+
 session_start();
 include "./includes/config.php";
 
+// Check if person does not have access
+if (!isset($_SERVER['HTTP_REFERER'])) {
+    $_SESSION['error'] = "Invalid link.";
+    header("location: manage_section_users.php");
+    exit;
+}
+
 if(!isset($_GET['section_id']) && !isset($_GET['user_id'] )){
-    // redirect to show page
-    die('id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location:manage_courses.php");
+    exit;
 }
 
 $section_id= (int)$_GET['section_id'];

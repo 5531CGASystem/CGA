@@ -6,16 +6,16 @@
 session_start();
 include "./config.php";
 
-if(!isset($_GET['id'])){
-    $_SESSION['error'] = "Invalid link.";
-    header("location: manage_courses.php");
-    exit;
-}
-$id = (int)$_GET['id'];
-$section_id = (int)$_GET['section_id'];
-
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    if(!isset($_GET['id'])){
+        $_SESSION['error'] = "Invalid link.";
+        header("location: ../manage_courses.php");
+        exit;
+    }
+    $id = (int)$_GET['id'];
+    $section_id = (int)$_GET['section_id'];
+
     //check capacity
     if (sizeof($_POST['leader_id'])!=0 && sizeof($_POST['leader_id']) > $_POST["capacity"]) {
         $_SESSION['error'] = "Selected count of members is greater than capacity or select atleast one member";

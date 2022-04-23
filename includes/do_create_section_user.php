@@ -6,24 +6,24 @@
 session_start();
 include "./config.php";
 
-$id=0;
-$section_id=0;
-if (isset($_POST['submit'])){  
-	$id =$_POST["id"];
-	$section_id=$id;
-}
-elseif (isset($_GET['id'])){
-	$id = (int)$_GET['id'];
-	$section_id=$id;
-}
-else {
-    $_SESSION['error'] = "Invalid link.";
-    header("location: ../manage_courses.php");
-    exit;
-}
-
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
+    $id=0;
+    $section_id=0;
+    if (isset($_POST['submit'])){  
+        $id =$_POST["id"];
+        $section_id=$id;
+    }
+    elseif (isset($_GET['id'])){
+        $id = (int)$_GET['id'];
+        $section_id=$id;
+    }
+    else {
+        $_SESSION['error'] = "Invalid link.";
+        header("location: ../manage_courses.php");
+        exit;
+    }
+
     // Prepare an insert statement
     $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?, ?, ?)";
         

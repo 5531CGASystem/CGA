@@ -6,10 +6,12 @@
 session_start();
 include "./config.php";
 
-$id = (int)$_GET['id'];
-
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(isset($_GET['id'])){
+        $id = (int)$_GET['id'];
+    }
 
     // Prepare a select statement
     $sql = "SELECT course_id FROM courses WHERE course_name = ? and course_id!=$id";
@@ -69,5 +71,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Close statement
         mysqli_stmt_close($stmt);
     }
+}
+else{
+    header("location:../manage_courses.php");
+    exit;
 }
 ?>
