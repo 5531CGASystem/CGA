@@ -49,6 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Set user info variables
     $password = trim($_POST["password"]);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $fname = trim($_POST["fname"]);
     $lname = trim($_POST["lname"]);
     $email = trim($_POST["email"]);
@@ -73,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Set parameters
             $create_at = date("Y/m/d");
             $param_username = $username;
-            $param_password = $password;
+            $param_password = $hashed_password;
             $param_fname = $fname;
             $param_lname = $lname;
             $param_email = $email;

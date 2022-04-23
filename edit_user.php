@@ -62,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $username = trim($_POST["username"]);
     $password = trim($_POST["password"]);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
     $fname = trim($_POST["fname"]);
     $lname = trim($_POST["lname"]);
     $email = trim($_POST["email"]);
@@ -89,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_bind_param($stmt, "sssssssss", $param_username, $param_password, $param_fname, $param_lname, $param_email, $param_create_at, $param_isactive,$param_isadmin, $param_reset_password);
             // Set parameters
             $param_username = $username;
-            $param_password = $password;
+            $param_password = $hashed_password;
             $param_fname = $fname;
             $param_lname = $lname;
             $param_email = $email;

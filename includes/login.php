@@ -10,6 +10,7 @@ include "config.php";
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $username = $link->real_escape_string(trim($_POST["username"]));
     $password = $link->real_escape_string(trim($_POST["password"]));
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 	
 	// Validate credentials
     $data = $link->query("SELECT * FROM users WHERE username = '$username' AND isactive=1");
@@ -23,7 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $db_reset_password = $user_data['reset_password'];
         $db_isadmin = $user_data['isadmin'];
         
-        if($db_password==$password){
+        if($db_password==$hashed_password){
             // Store data in session variables
             $_SESSION["loggedin"] = true;
             $_SESSION["id"] = $db_user_id;
