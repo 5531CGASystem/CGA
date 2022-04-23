@@ -2,6 +2,7 @@
 // Deletes a user
 // Author: 40197292
 // Edited: 40215517 & 40196855
+// Tester: 40186828
 
 session_start();
 include "./includes/config.php";

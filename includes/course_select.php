@@ -1,4 +1,6 @@
 <?php
+// Author: 40215517
+
 session_start();
 include "config.php";
 

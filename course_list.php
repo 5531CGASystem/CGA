@@ -1,4 +1,8 @@
 <?php
+// Author: 40215517
+// Edited: 40196855
+// Tester: 40186828
+
 session_start();
 include "./includes/config.php";
 
@@ -39,7 +43,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 	
 	// Show courses that are available to them in that role
 	if($_SESSION['role_id'] == 1){
-		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id ORDER BY 2,3,4,5,11";
+		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id ORDER BY 2,3,4,5,10";
 	}
 	else{
 		$sql = "SELECT * FROM courses c JOIN sections s ON c.course_id = s.course_id 
@@ -58,7 +62,7 @@ input {border:none; background-color:rgba(0,0,0,0); color:blue; text-decoration:
 			$term = $row[3];
 			$year = $row[4];
 			$section_id = $row[8];
-			$section_name = $row[11];
+			$section_name = $row[10];
 
 			echo "<tr><td><center><form name=course_select method=post action=includes/course_select.php>";
 			echo "<input type=Submit value='" . $code . " " . $term . " " . $year . " Section " . $section_name . "'>";

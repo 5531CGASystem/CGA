@@ -2,6 +2,7 @@
 // Page to edit a course
 // Author: 40197292
 // Edited: 40215517 & 40196855
+// Tester: 40186828
 
 include "includes/head.php";
 

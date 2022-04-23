@@ -2,6 +2,7 @@
 // Helper to edit a group
 // Author: 40197292
 // Edited: 40215517
+// Tester: 40186828
 
 session_start();
 include "./config.php";

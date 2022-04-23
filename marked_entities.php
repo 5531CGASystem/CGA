@@ -1,5 +1,8 @@
 <?php
 include "includes/head.php";
+// Author: 40215517
+// Tester: 40186828
+
 ?>
 
 <!-- Displays the coursemanager main content -->

@@ -1,4 +1,8 @@
 <?php
+// Author: 40215517
+// Edited: 40196855
+// Tester: 40186828
+
 include "includes/head.php";
 
 // Check if person does not have access
@@ -116,7 +120,7 @@ if (!isset($_SERVER['HTTP_REFERER'])) {
     echo "Viewable to (assigned to): <font color='darkblue'>" . $view . "</font><br>";
     if(isset($real_file_name) && $real_file_name != null)
     echo "File attachment: <a href='download.php?name=" . $real_file_name . "'> $file </a><br>";
-    echo "Description: <font color='darkblue'>" . $desc . "</font><br>";
+    echo "Description: <font color='darkblue'><pre>" . $desc . "</pre></font><br>";
     echo "<p></p>";
     echo "Files uploaded to this entity:";
     echo "<p></p>";

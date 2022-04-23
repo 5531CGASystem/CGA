@@ -1,4 +1,7 @@
 <?php
+// Author: 40215517
+// Tester: 40186828
+
 include "includes/head.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['to'])) {

@@ -1,6 +1,7 @@
 <?php
 // Password reset page
 // Author: 40215517
+// Tester: 40186828
 
 session_start();
 include "./config.php";

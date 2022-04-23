@@ -1,4 +1,7 @@
 <?php
+// Author: 40215517
+// Tester: all
+
 /* Database credentials. */
 define('DB_SERVER', 'rtc5531.encs.concordia.ca');
 define('DB_USERNAME', 'rtc55314');

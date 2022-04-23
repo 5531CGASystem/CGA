@@ -1,7 +1,8 @@
 <?php
 // Portal page to view and manage groups
-// Authors: 40197292
-// Edited by: 40215517 & 40196855
+// Author: 40197292
+// Edited: 40215517 & 40196855
+// Tester: 40186828
 
 include "includes/head.php";
 

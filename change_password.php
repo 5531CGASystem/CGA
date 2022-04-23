@@ -1,6 +1,8 @@
 <?php
 // Page for changing password
 // Author: 40215517
+// Edited: 40196855
+// Tester: 40186828
 
 session_start();
 include "./includes/config.php";

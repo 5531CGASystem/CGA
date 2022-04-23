@@ -1,4 +1,8 @@
 <?php
+// Author: 40215517
+// Edited: 40196855
+// Tester: 40186828
+
 include "includes/head.php";
 
 // Check if person does not have access

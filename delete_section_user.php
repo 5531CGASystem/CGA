@@ -2,6 +2,7 @@
 // Helper to delete a user from the section
 // Author: 40197292
 // Edited by: 40215517
+// Tester: 40186828
 
 session_start();
 include "./includes/config.php";

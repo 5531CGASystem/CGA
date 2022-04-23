@@ -2,6 +2,7 @@
 // Page to create a course section
 // Author: 40197292
 // Edited by: 40215517 & 40196855
+// Tester: 40186828
 
 include "includes/head.php";
 

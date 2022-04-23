@@ -1,4 +1,8 @@
 <?php
+// Author: 40196855
+// Edited: 40215517
+// Tester: 40186828
+
 include "includes/head.php";
 if(!isset($_SERVER['HTTP_REFERER'])){
   // Redirect user back to previous page
