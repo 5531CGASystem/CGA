@@ -57,7 +57,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
 
         // Allow certain file formats
-        if (!strcasecmp($fileType, "pdf") &&  !strcasecmp($fileType, "zip")) {
+        if (!strcasecmp($fileType, "pdf") && !strcasecmp($fileType, "zip")) {
             $_SESSION['error'] = "Sorry, only pdf or zip files are allowed.";
             // Redirect user back to previous page
             header("location: ../add_marked_entity.php");
