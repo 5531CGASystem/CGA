@@ -29,7 +29,7 @@ $section_name = "";
 $section_error = "";
 $prof_id = 0;
 
-$query = "SELECT u.user_id, u.username FROM users u";
+$query = "SELECT u.user_id, u.username FROM users u WHERE isactive=1";
 $result2 = mysqli_query($link, $query);
 $options = "";
 while ($row2 = mysqli_fetch_array($result2)) {

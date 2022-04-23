@@ -1,5 +1,7 @@
 <?php
+// Portal to manage courses
 // Author: 40197292
+// Edited: 40215517
 
 include "includes/head.php";
 

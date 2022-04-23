@@ -9,7 +9,7 @@ include "./includes/config.php";
 // Check if person does not have access
 if (!isset($_SERVER['HTTP_REFERER'])) {
     // Redirect user back to previous page
-    header("location: manage_sections.php");
+    header("location: manage_courses.php");
     exit;
 }
 if(!isset($_GET['course_id'])){

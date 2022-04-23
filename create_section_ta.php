@@ -1,20 +1,33 @@
 <?php
-//40197292
-/* Database credentials. */
+// Adds a TA to a section
+// Author: 40197292
+// Edited: 40215517
+
 include "includes/head.php";
+
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
+}
 
 $id = 0;
 $section_id = 0;
 if (isset($_POST['submit'])) {
     $id = $_POST["id"];
     $section_id = $id;
-} else {
+} elseif (isset($_GET['id'])) {
     $id = (int)$_GET['id'];
     $section_id = $id;
 }
-//$sql = mysqli_query($link,"SELECT section_name FROM sections WHERE section_id = '$id'");
-//$row2 = mysqli_fetch_array($sql);
-$query = "SELECT u.user_id,u.username FROM users u";
+else {
+    $_SESSION['error'] = "Invalid link.";
+    header("location: manage_courses.php");
+    exit;
+}
+
+$query = "SELECT u.user_id,u.username FROM users u WHERE isactive=1 and u.user_id NOT IN(SELECT user_id FROM users_roles_sections WHERE section_id=$section_id AND (role_id=3 OR role_id=4 OR role_id=2))";
 $result = mysqli_query($link, $query);
 $options = "";
 while ($row = mysqli_fetch_array($result)) {
@@ -25,10 +38,7 @@ while ($row = mysqli_fetch_array($result)) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Prepare an insert statement
-    $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?, ?,?)";
-    if ($sql == false) {
-        die("ERROR: Could not connect. " . mysqli_error($link));
-    }
+    $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?,?,?)";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
@@ -41,10 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
-            // Redirect to previous page
+            $_SESSION['message'] = "TA added successfully!!";
             header("location:manage_section_tas.php?id=$id");
+            exit;
         } else {
-            die('Error with execute: ' . htmlspecialchars($stmt->error));
+            $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+            header("location:create_section_ta.php?id=$id");
+            exit;
         }
         // Close statement
         mysqli_stmt_close($stmt);
@@ -67,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
     <h1>Associate TA</h1>
-    <form action="<?php echo "includes/do_create_section_ta.php?id=" . $id; ?>" method="post">
+    <form action="<?php echo "create_section_ta.php?id=" . $id; ?>" method="post">
         <div class="form-group">
             <label>TAs</label>
             <select name="user_id" id="user_id" class="form-control">
