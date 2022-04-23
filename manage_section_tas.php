@@ -6,7 +6,7 @@
 include "includes/head.php";
 
 // Check if person does not have access
-if ($_SESSION['role_id'] != 1) {
+if ($_SESSION['role_id'] != 1 && $_SESSION['role_id'] != 2) {
   // Redirect user back to previous page
   header("location: index.php");
   exit;

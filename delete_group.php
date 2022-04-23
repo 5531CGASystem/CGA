@@ -1,19 +1,29 @@
 <?php
-//Author:
-//40197292
-//Edited by:
-//40215517
+// Helper to delete a group
+// Author: 40197292
+// Edited: 40215517
+
 session_start();
 include "./includes/config.php";
 
+// Check if person does not have access
+if (!isset($_SERVER['HTTP_REFERER'])) {
+    // Redirect user back to previous page
+    header("location: manage_groups.php");
+    exit;
+}
+
 if(!isset($_GET['section_id'])){
-    // redirect to show page
-    die('section_id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location: manage_courses.php");
+    exit;
 }
 if(!isset($_GET['group_id'])){
-    // redirect to show page
-    die('group_id not provided');
+    $_SESSION['error'] = "Invalid link.";
+    header("location: manage_courses.php");
+    exit;
 }
+
 $section_id = (int)$_GET['section_id'];
 $group_id = (int)$_GET['group_id'];
 

@@ -1,0 +1,58 @@
+<?php
+// Helper to assign section ta
+// Author: 40197292
+// Edited: 40215517 & 40196855
+
+session_start();
+include './config.php';
+
+// Processing form data when form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $id = 0;
+    $section_id = 0;
+    if (isset($_POST['submit'])) {
+        $id = $_POST["id"];
+        $section_id = $id;
+    } elseif (isset($_GET['id'])) {
+        $id = (int)$_GET['id'];
+        $section_id = $id;
+    }
+    else {
+        $_SESSION['error'] = "Invalid link.";
+        header("location: ../manage_courses.php");
+        exit;
+    }
+
+    // Prepare an insert statement
+    $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?,?,?)";
+
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "iii", $param_ta_id, $param_section_id, $param_role_id);
+
+        // Set parameters
+        $param_ta_id = $_POST["user_id"];
+        $param_section_id = $section_id;
+        $param_role_id = 3;
+
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+            $_SESSION['message'] = "TA added successfully!!";
+            header("location:../manage_section_tas.php?id=$id");
+            exit;
+        } else {
+            $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
+            header("location:../create_section_ta.php?id=$id");
+            exit;
+        }
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
+}
+else{
+    header("location:../index.php");
+    exit;
+}
+
+?>

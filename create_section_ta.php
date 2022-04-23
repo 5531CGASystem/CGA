@@ -6,7 +6,7 @@
 include "includes/head.php";
 
 // Check if person does not have access
-if ($_SESSION['role_id'] != 1) {
+if ($_SESSION['role_id'] != 1 && $_SESSION['role_id'] != 2) {
     // Redirect user back to previous page
     header("location: index.php");
     exit;
@@ -33,37 +33,6 @@ $options = "";
 while ($row = mysqli_fetch_array($result)) {
     $options = $options . "<option value='$row[0]'>$row[1]</option>";
 }
-
-// Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // Prepare an insert statement
-    $sql = "INSERT INTO users_roles_sections(user_id, section_id, role_id) VALUES (?,?,?)";
-
-    if ($stmt = mysqli_prepare($link, $sql)) {
-        // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "iii", $param_ta_id, $param_section_id, $param_role_id);
-
-        // Set parameters
-        $param_ta_id = $_POST["user_id"];
-        $param_section_id = $section_id;
-        $param_role_id = 3;
-
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            $_SESSION['message'] = "TA added successfully!!";
-            header("location:manage_section_tas.php?id=$id");
-            exit;
-        } else {
-            $_SESSION['error'] = 'Error with execute: ' . htmlspecialchars($stmt->error);
-            header("location:create_section_ta.php?id=$id");
-            exit;
-        }
-        // Close statement
-        mysqli_stmt_close($stmt);
-    }
-}
-
 ?>
 
 <div class="content">
@@ -80,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     ?>
     <h1>Associate TA</h1>
-    <form action="<?php echo "create_section_ta.php?id=" . $id; ?>" method="post">
+    <form action="<?php echo "includes/do_create_section_ta.php?id=" . $id; ?>" method="post">
         <div class="form-group">
             <label>TAs</label>
             <select name="user_id" id="user_id" class="form-control">

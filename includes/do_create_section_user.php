@@ -51,7 +51,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 }
 else{
-    $_SESSION['error'] = "Invalid link.";
     header("location: ../manage_courses.php");
     exit;
 }

@@ -5,6 +5,13 @@
 
 include "includes/head.php";
 
+// Check if person does not have access
+if ($_SESSION['role_id'] != 1 && $_SESSION['role_id'] != 2) {
+    // Redirect user back to previous page
+    header("location: index.php");
+    exit;
+}
+
 $id=0;
 $section_id=0;
 if (isset($_POST['submit'])){  
