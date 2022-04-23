@@ -23,8 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $db_lname = $user_data['lname'];
         $db_reset_password = $user_data['reset_password'];
         $db_isadmin = $user_data['isadmin'];
-        
-        if($db_password==$hashed_password){
+        if(password_verify($password, $db_password)){
             // Store data in session variables
             $_SESSION["loggedin"] = true;
             $_SESSION["id"] = $db_user_id;
